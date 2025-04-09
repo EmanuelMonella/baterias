@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+actor Usuario
+
+rectangle "Gestión de Clientes" {
+  (Agregar proveedor)
+  (Buscar proveedor)
+  (Eliminar proveedor)
+  (Modificar proveedor)
+  (Ver historial de compra)
+}
+
+Usuario --> (Agregar proveedor)
+Usuario --> (Buscar proveedor)
+Usuario --> (Eliminar proveedor)
+Usuario --> (Modificar proveedor)
+Usuario --> (Ver historial de compra)
+@enduml
