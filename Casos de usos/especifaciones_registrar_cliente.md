@@ -1,32 +1,3 @@
-# **Caso de Uso:** Registrar Cliente
-
-## **Actores**
-- Usuario del sistema
-
-## **Precondiciones**
-✅ El usuario debe estar autenticado en el sistema
-
-## **Requerimientos**
-📋 Campos obligatorios para registro:
-1. Nombre del cliente
-2. Vehículo asociado
-3. Teléfono de contacto
-4. Dirección física
-
----
-
-## **Flujo Principal**
-
-1. **Usuario:** Selecciona opción "Clientes" en el menú  
-   → *Sistema muestra pantalla de gestión de clientes*
-
-2. **Usuario:** Hace clic en botón "Agregar"  
-   → *Sistema carga pantalla "Agregar cliente"*
-
-3. **Usuario:** Completa formulario con datos requeridos  y presiona botón "Guardar"  
-   → *Sistema ejecuta validación de datos*
-
-4. **Sistema:** Registra cliente en base de datos  
 # CASO DE USO: Registrar cliente
 
 ## ACTORES
