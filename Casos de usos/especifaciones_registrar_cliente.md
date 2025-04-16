@@ -23,12 +23,10 @@
 2. **Usuario:** Hace clic en botón "Agregar"  
    → *Sistema carga pantalla "Agregar cliente"*
 
-3. **Usuario:** Completa formulario con datos requeridos
-
-4. **Usuario:** Presiona botón "Guardar"  
+3. **Usuario:** Completa formulario con datos requeridos  y presiona botón "Guardar"  
    → *Sistema ejecuta validación de datos*
 
-5. **Sistema:** Registra cliente en base de datos  
+4. **Sistema:** Registra cliente en base de datos  
 # CASO DE USO: Registrar cliente
 
 ## ACTORES
