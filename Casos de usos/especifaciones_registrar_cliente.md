@@ -29,28 +29,33 @@
    → *Sistema ejecuta validación de datos*
 
 5. **Sistema:** Registra cliente en base de datos  
-   → *Muestra confirmación de éxito*
+# CASO DE USO: Registrar cliente
 
----
+## ACTORES
+- Usuario
 
-## **Flujo Alternativo**
+## PRECONDICIONES
+- Estar logueado en el sistema
 
-### **A1: Cancelación de operación**
-1. En cualquier paso anterior al 4:  
-   → **Usuario:** Presiona botón "Descartar"  
-   → *Sistema cancela operación y vuelve al menú principal*
+## REQUERIMIENTOS
+Los clientes deben registrarse con los siguientes datos:
+- Nombre
+- Vehiculo
+- Telefono
+- Direccion
 
-### **A2: Datos inválidos**
-1. Después del paso 4:  
-   → **Sistema:** Detecta errores en formulario  
-   → Muestra mensaje de error detallado  
-   → **Usuario:** Corrige datos y reintenta guardar
+## FLUJO NORMAL
+1. El usuario selecciona la opcion "Clientes"
+2. El sistema abre la pantalla de clientes
+3. El usuario hace click en el boton "Agregar"
+4. El sistema pasa a la pantalla "Agregar cliente"
+5. El usuario completa los formularios que solicita el sistema y hace click en el boton guardar
+6. El sistema valida los datos, registra y almacena al nuevo cliente
 
----
+## FLUJO ALTERNATIVO
+1-* El usuario puede cancelar la operacion haciendo click en el boton descartar
 
-## **Postcondiciones**
-🗄️ El nuevo cliente queda registrado con:  
-- Fecha de creación automática
-- Estado activo por defecto
-- Historial de cambios auditado
+6.1- El sistema valida los datos ingresados, encuentra errores, avisa al usuario y retorna al punto 5
 
+## POSTCONDICIONES
+- Queda registrado y guardado el nuevo cliente
