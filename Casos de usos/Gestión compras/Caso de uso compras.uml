@@ -4,13 +4,11 @@ actor "Usuario" as usuario
 
 rectangle "Compras" {
   (Registrar compra) as reg_compra
-  (Validar factura) as fact_compra
   (Consultar historico) as hist_compra
   (Actualizar inventario) as inv_compra
 }
 
 usuario --> reg_compra
-usuario --> fact_compra
 usuario --> hist_compra
 usuario --> inv_compra
 
