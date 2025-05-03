@@ -4,16 +4,16 @@ left to right direction
 actor Usuario
 
 rectangle "Gestión de Clientes" {
-  (Agregar proveedor)
-  (Buscar proveedor)
-  (Eliminar proveedor)
-  (Modificar proveedor)
+  (Agregar cliente)
+  (Buscar cliente)
+  (Eliminar cliente)
+  (Modificar cliente)
   (Ver historial de compra)
 }
 
-Usuario --> (Agregar proveedor)
-Usuario --> (Buscar proveedor)
-Usuario --> (Eliminar proveedor)
-Usuario --> (Modificar proveedor)
+Usuario --> (Agregar cliente)
+Usuario --> (Buscar cliente)
+Usuario --> (Eliminar cliente)
+Usuario --> (Modificar cliente)
 Usuario --> (Ver historial de compra)
 @enduml
