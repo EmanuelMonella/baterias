@@ -1,14 +1,15 @@
 # CASO DE USO: Modificar stock batería  
-**ACTORES**  
+
+## ACTORES  
 Usuario
 
-**PRECONDICIONES**  
+## PRECONDICIONES  
 Batería en stock
 
-**REQUERIMIENTOS**  
+## REQUERIMIENTOS  
 El usuario puede registrar la modificación de un producto en este caso una batería
 
-**FLUJO NORMAL**  
+## FLUJO NORMAL  
 1. Sistema muestra:  
    - Datos actuales en modo lectura  
    - Panel de edición con campos modificables 
@@ -19,10 +20,10 @@ El usuario puede registrar la modificación de un producto en este caso una bate
    - Actualiza fecha última modificación  
    - Recalcula parámetros derivados  
 
-**FLUJO ALTERNATIVO**  
+## FLUJO ALTERNATIVO  
 2.1. Modificación crítica → Dispara flujo de aprobación  
 3.1. Cambio en especificaciones → Actualiza documentación técnica asociada  
 
-**POSTCONDICIONES**  
+## POSTCONDICIONES
 - Versión anterior archivada  
 - Notificación a departamento técnico  

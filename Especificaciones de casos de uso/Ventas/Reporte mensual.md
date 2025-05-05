@@ -1,17 +1,18 @@
 # CASO DE USO: Generar reporte mensual  
-**ACTORES**  
-Gerente/Administrador  
 
-**PRECONDICIONES**  
+## ACTORES  
+Usuario  
+
+## PRECONDICIONES  
 1. Mes cerrado contablemente  
 2. Datos consolidados disponibles  
 
-**REQUERIMIENTOS**  
+## REQUERIMIENTOS  
 1. Comparativo mes actual vs. mes anterior vs. mismo mes año anterior  
 2. Análisis ABC de productos  
 3. Márgenes de ganancia por categoría  
 
-**FLUJO NORMAL**  
+## FLUJO NORMAL  
 1. Sistema compila datos y genera:  
    - Dashboard interactivo con 5 vistas clave:  
      1. Evolución diaria de ventas  
@@ -28,10 +29,10 @@ Gerente/Administrador
    - Datos crudos (SQL dump)  
    - Formato impresión optimizado  
 
-**FLUJO ALTERNATIVO**  
+## FLUJO ALTERNATIVO  
 1.1. Datos inconsistentes → Genera reporte parcial con alertas de validación  
 2.1. Personalización → Permite agregar métricas personalizadas vía SQL query  
 
-**POSTCONDICIONES**  
+## POSTCONDICIONES  
 - Reporte archivado en sección documentación  
 - Dispara notificaciones a stakeholders vía email  

@@ -1,17 +1,18 @@
 # CASO DE USO: Actualizar inventario  
-**ACTORES**  
+
+## ACTORES 
 Sistema automatizado  
 
-**PRECONDICIONES**  
+## PRECONDICIONES  
 1. Compra registrada y validada  
 2. Productos con stock mínimo configurado  
 
-**REQUERIMIENTOS**  
+## REQUERIMIENTOS 
 1. Ajuste paralelo de múltiples almacenes  
 2. Notificaciones para reposición de stock  
 3. Control de versiones de inventario  
 
-**FLUJO NORMAL**  
+## FLUJO NORMAL  
 1. Al confirmar compra:  
    - Sistema actualiza stock físico y disponible  
    - Calcula nuevo punto de reorden  
@@ -20,10 +21,10 @@ Sistema automatizado
    - Módulo de ventas (actualiza disponibilidad)  
    - Almacén inteligente (ubica productos según algoritmo)  
 
-**FLUJO ALTERNATIVO**  
+## FLUJO ALTERNATIVO  
 1.1. Producto nuevo → Crea registro en inventario con datos de compra  
 1.2. Diferencia inventario físico vs. sistema → Genera reporte de discrepancias  
 
-**POSTCONDICIONES**  
+## POSTCONDICIONES 
 - Base de datos de inventario sincronizada  
 - Notificación a logística si se alcanza stock máximo  

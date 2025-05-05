@@ -1,14 +1,15 @@
-# CASO DE USO: Clasificar baterías  
-**ACTORES**  
+# CASO DE USO: Clasificar baterías 
+
+## ACTORES  
 Usuario 
 
-**PRECONDICIONES**  
+## PRECONDICIONES  
 Batería en stock
 
-**REQUERIMIENTOS**  
+## REQUERIMIENTOS  
 El usuario debe clasificar la bateria
 
-**FLUJO NORMAL**  
+## FLUJO NORMAL  
 1. Sistema analiza:  
    - Parámetros técnicos  
    - Histórico de rendimiento  
@@ -21,10 +22,10 @@ El usuario debe clasificar la bateria
    - Etiquetas visibles en interfaz  
    - Agrupamientos inteligentes  
 
-**FLUJO ALTERNATIVO**  
+## FLUJO ALTERNATIVO  
 1.1. Batería sin clasificación clara → Notifica para revisión manual  
 2.1. Clasificación errónea → Permite reasignación con justificación  
 
-**POSTCONDICIONES**  
+## POSTCONDICIONES  
 - Categorías aplicadas en reportes  
 - Actualización de reglas de negocio  

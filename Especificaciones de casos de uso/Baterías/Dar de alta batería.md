@@ -1,16 +1,17 @@
 # CASO DE USO: Dar alta batería
-**ACTORES**  
+
+## ACTORES  
 Usuario
 
-**PRECONDICIONES**  
+## PRECONDICIONES 
 1. Usuario logueado 
 2. Proveedor registrado en el sistema  
 3. Código único disponible (no duplicado)  
 
-**REQUERIMIENTOS**  
+## REQUERIMIENTOS 
 El usuario puede registrar el alta.
 
-**FLUJO NORMAL**  
+## FLUJO NORMAL  
 1. Sistema muestra formulario con:  
    - Datos básicos: Modelo, Fabricante, SKU  
    - Especificaciones técnicas:  
@@ -30,10 +31,10 @@ El usuario puede registrar el alta.
    - Crea registro en base de datos relacional  
    - Dispara notificación a control de calidad  
 
-**FLUJO ALTERNATIVO**  
+## FLUJO ALTERNATIVO 
 1.1. SKU duplicado → Alerta "Código ya existente"  
 2.1. Datos incompletos → Resalta campos faltantes en rojo  
 
-**POSTCONDICIONES**  
+## POSTCONDICIONES  
 - Batería disponible en catálogo  
 - Evento registrado en log de auditoría  
