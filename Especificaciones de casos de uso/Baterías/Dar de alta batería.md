@@ -13,10 +13,10 @@ El usuario puede registrar el alta.
 
 ## FLUJO NORMAL  
 1. Sistema muestra formulario con:  
-   - Datos básicos: Modelo, Fabricante  
+   - Datos básicos: Modelo, Fabricante, código 
    - Especificaciones técnicas:  
      • Voltaje (12V/24V/48V)  
-     • Capacidad (Ah)  
+     • Capacidad (Ah)
      • Química (Li-ion/Plomo-ácido)  
      • Ciclos de vida garantizados  
    - Datos logísticos:  
@@ -32,7 +32,7 @@ El usuario puede registrar el alta.
    - Dispara notificación a control de calidad  
 
 ## FLUJO ALTERNATIVO 
-1.1. SKU duplicado → Alerta "Código ya existente"  
+1.1. Código duplicado → Alerta "Código ya existente"  
 2.1. Datos incompletos → Resalta campos faltantes en rojo  
 
 ## POSTCONDICIONES  
