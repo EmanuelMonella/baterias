@@ -13,7 +13,7 @@ El usuario puede registrar el alta.
 
 ## FLUJO NORMAL  
 1. Sistema muestra formulario con:  
-   - Datos básicos: Modelo, Fabricante, SKU  
+   - Datos básicos: Modelo, Fabricante  
    - Especificaciones técnicas:  
      • Voltaje (12V/24V/48V)  
      • Capacidad (Ah)  
