@@ -1,0 +1,70 @@
+@startuml
+class Venta {
+  + medio_pago: str
+  + numero_factura: string
+  + tipo_facturar: str
+  + historial_ventas()
+  + agregar_item()
+  + registrar_enta()
+}
+
+class Bateria {
+  + marca: str
+  + modelo: str
+  + cantidad: int
+  + controlar_stock()
+  + registrar_stock()
+}
+
+class ItemCompra {
+  + producto: Bateria
+  + cantidad: int
+  + precio: float
+  + calcular_subtotal()
+  + agregar_item_compra()
+}
+
+class Cliente {
+  + nombre: str
+  + vehiculo: str
+  + telefono: str
+  + direccion: str
+  + buscar_cliente()
+  + crear_cliente()
+  + modificar_cliente()
+  + eliminar_cliente()
+}
+
+class Compra {
+  + cantidad: int
+  + precio: float
+  + metodo_pago: str
+  + numero_factura: str
+  + tipo_factura: str
+  + historial_compras()
+  + registrar_compra()
+}
+
+class Proveedor {
+  + nombre: str
+  + telefono: str
+  + cuit: str
+  + historial_proveedor()
+  + historial_compras()
+}
+
+class ItemVenta {
+  + producto: Bateria
+  + cantidad: int
+  + precio: float
+  + calcular_subtotal()
+  + agregar_item_venta()
+}
+
+Venta "1" *-- "1..*" ItemVenta : contiene
+Compra "1" *-- "1..*" ItemCompra : contiene
+Bateria "1" -- "1..*" ItemCompra
+Bateria "1" -- "1..*" ItemVenta
+Cliente "1" -- "1..*" Venta : realiza
+Proveedor "1" -- "1..*" Compra : realiza
+@enduml
