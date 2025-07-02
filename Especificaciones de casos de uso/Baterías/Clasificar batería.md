@@ -6,7 +6,7 @@ Usuario
 ## PRECONDICIONES  
 Batería en stock
 
-## REQUERIMIENTOS  
+REQUERIMIENTOS  
 El usuario debe clasificar la bateria
 
 ## FLUJO NORMAL  
