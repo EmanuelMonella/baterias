@@ -1,6 +1,6 @@
 # CASO DE USO: Dar baja batería 
 
-## ACTORES**  
+## ACTORES  
 Usuario  
 
 ## PRECONDICIONES  
