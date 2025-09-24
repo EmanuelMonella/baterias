@@ -15,12 +15,12 @@ El usuario registra la baja de stock.
    - Defecto de fabricación  
    - Fin de vida útil  
    - Retiro del mercado  
-2. Sistema pide confirmacion.
-3. Usuario confirma la operacion.
-4. Sistema modifica stock y muestra mensaje de confirmacion.
+2. Sistema pide confirmación.
+3. Usuario confirma la operación.
+4. Sistema modifica stock y muestra mensaje de confirmación.
 
 ## FLUJO ALTERNATIVO  
-*.1 Usuario puede descartar la operacion.
+*.1 Usuario puede descartar la operación.
 3.1 Usuario no confirma la operacion y vuelve al paso 1.
 
 ## POSTCONDICIONES  
