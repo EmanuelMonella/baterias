@@ -8,25 +8,20 @@ Usuario
 2. Sin transacciones pendientes  
 
 ## REQUERIMIENTOS
-El usuario puede registrar el baja.
+El usuario registra la baja de stock.
 
 ## FLUJO NORMAL
 1. Usuario selecciona batería y elige motivo de baja:  
    - Defecto de fabricación  
    - Fin de vida útil  
    - Retiro del mercado  
-2. Sistema verifica:  
-   - Sin ventas asociadas en últimos 30 días  
-   - No pertenece a kits activos  
-3. Requiere:  
-   - Carga documento de disposición final  
-   - Firma digital del responsable  
-4. Ejecuta baja lógica (no eliminación física)  
+2. Sistema pide confirmacion.
+3. Usuario confirma la operacion.
+4. Sistema modifica stock y muestra mensaje de confirmacion.
 
 ## FLUJO ALTERNATIVO  
-1.1. Batería en garantía → Abre ticket con fabricante  
-3.1. Baja masiva → Habilita proceso batch con validación por lote  
+*.1 Usuario puede descartar la operacion.
+3.1 Usuario no confirma la operacion y vuelve al paso 1.
 
 ## POSTCONDICIONES  
-- Estado actualizado a "Retirada"  
-- Espacio liberado en almacén  
+- Stock modificado
