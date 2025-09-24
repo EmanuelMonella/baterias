@@ -1,40 +1,30 @@
 # CASO DE USO: Dar alta batería
 
 ## ACTORES  
-Usuario
+- Usuario
 
-## PRECONDICIONES 
-1. Usuario logueado 
-2. Proveedor registrado en el sistema  
-3. Código único disponible (no duplicado)  
+## PRECONDICIONES  
+- Estar logueado en el sistema  
+- Existencia de un proveedor registrado en el sistema  
+- Código de batería no debe estar previamente registrado (único)
 
-## REQUERIMIENTOS 
-El usuario puede registrar el alta.
+## REQUERIMIENTOS  
+El usuario debe registrar una batería.
 
 ## FLUJO NORMAL  
-1. Sistema muestra formulario con:  
-   - Datos básicos: Modelo, Fabricante, código 
-   - Especificaciones técnicas:  
-     • Voltaje (12V/24V/48V)  
-     • Capacidad (Ah)
-     • Química (Li-ion/Plomo-ácido)  
-     • Ciclos de vida garantizados  
-   - Datos logísticos:  
-     • Proveedor principal  
-     • Almacén destino  
-     • Stock inicial  
-2. Usuario completa datos y adjunta:  
-   - Ficha técnica PDF  
-   - Certificado de cumplimiento normativo  
-3. Sistema:  
-   - Genera código QR con datos críticos  
-   - Crea registro en base de datos relacional  
-   - Dispara notificación a control de calidad  
+1. El usuario selecciona la opción STOCK 
+2. El sistema abre la pantalla de gestión de stock 
+3. El usuario hace clic en el botón DAR DE ALTA 
+4. El sistema muestra la pantalla ALTA DE STOCK con el formulario correspondiente  
+5. El usuario completa los campos requeridos 
+6. El usuario hace clic en el botón GUARDAR 
+7. El sistema valida los datos ingresados y registra el nuevo STOCK
 
-## FLUJO ALTERNATIVO 
-1.1. Código duplicado → Alerta "Código ya existente"  
-2.1. Datos incompletos → Resalta campos faltantes en rojo  
+## FLUJO ALTERNATIVO  
+- **5.1** El usuario puede cancelar la operación haciendo clic en el botón DESCARTAR  
+- **7.1** Si el código ingresado ya existe, el sistema muestra el mensaje de alerta: CODIGO YA EXISTENTE y retorna al paso 5  
+- **7.2** Si hay datos incompletos o inválidos, el sistema resalta los campos con errores y retorna al paso 5
 
 ## POSTCONDICIONES  
-- Batería disponible en catálogo  
-- Evento registrado en log de auditoría  
+- La batería queda registrada y disponible en el catálogo  
+- El evento de alta queda registrado en el log de auditoría del sistema
