@@ -19,8 +19,8 @@
 5. El sistema valida los datos y guarda los datos modificados
 
 ## FLUJO ALTERNATIVO
-3-* El usuario puede hacer click en el boton "Descartar" o "Salir" y anular la operacion
-5.1. El sistema encuentra datos invalidos o nulos, avisa al usuario y vuelve al paso 3
+- **3.*.** El usuario puede hacer click en el boton "Descartar" y anular la operacion
+- **5.1.** El sistema encuentra datos invalidos o nulos, avisa al usuario y vuelve al paso 3
 
 ## POSTCONDICIONES
 - Los datos del cliente son modificados
