@@ -9,14 +9,14 @@
 - Tener al cliente filtrado
 
 ## REQUERIMIENTOS
-- El usuario puede eliminar los datos del cliente
+- El usuario elimina los datos del cliente
 
 ## FLUJO NORMAL
-1- El sistema muestra una pantalla con los datos de los clientes filtrados
-2- El usuario selecciona el cliente que desea eliminar y luego hace click en el boton eliminar
-3- El sistema pide confirmacion para eliminar cliente
-4- El usuario confirma la eliminacion
-5- El sistema elimina al cliente de la base de datos
+1. El sistema muestra una pantalla con los datos de los clientes filtrados
+2. El usuario selecciona el cliente que desea eliminar y luego hace click en el boton eliminar
+3. El sistema pide confirmacion para eliminar cliente
+4. El usuario confirma la eliminacion
+5. El sistema valida que el cliente exista y lo elimina de la base de datos
 
 ## FLUJO ALTERNATIVO
 - ***.1.** El usuario puede cancelar la operacion haciendo click en el boton "Salir"
