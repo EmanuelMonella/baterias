@@ -19,9 +19,8 @@
 5- El sistema elimina al cliente de la base de datos
 
 ## FLUJO ALTERNATIVO
-1-* El usuario puede cancelar la operacion haciendo click en el boton "Salir"
-4-1- El usuario no confirma la eliminacion y se vuelve a la pantalla anterior
+- ***.1.** El usuario puede cancelar la operacion haciendo click en el boton "Salir"
+- **4.1.** El usuario no confirma la eliminacion y se vuelve a la pantalla anterior
 
 ## POSTCONDICIONES
 - El cliente eliminado de la base de datos
-
