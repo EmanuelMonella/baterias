@@ -27,4 +27,4 @@ El usuario debe registrar una batería.
 
 ## POSTCONDICIONES  
 - La batería queda registrada y disponible en el catálogo  
-- El evento de alta queda registrado en el log de auditoría del sistema
+
