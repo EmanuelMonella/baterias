@@ -16,7 +16,7 @@
 2. El usuario selecciona un cliente de la tabla y hace click en el boton "Modificar"
 3. El sistema muestra la pantalla Modificar Cliente con los datos del cliente seleccionado
 4. El usuario modifica los campos que necesita y presiona el boton "Guardar"
-5. El sistema valida los datos y guarda los datos modificados
+5. El sistema valida los datos modificados del cliente y guarda los datos modificados
 
 ## FLUJO ALTERNATIVO
 - **3.*.** El usuario puede hacer click en el boton "Descartar" y anular la operacion
