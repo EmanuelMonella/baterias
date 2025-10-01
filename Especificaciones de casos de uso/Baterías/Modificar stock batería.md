@@ -20,8 +20,8 @@ El usuario debe registrar la modificación del stock de una batería
 7. Sistema guarda el cambio.
 
 ## FLUJO ALTERNATIVO  
-4.1. Usuario oprime el botón descartar y vuelve al paso 1.
-6.1. Usuario no acepta la modificación oprimiendo el botón descartar y vuelve al paso 1.
+- **4.1.** Usuario oprime el botón descartar y vuelve al paso 1.
+- **6.1.** Usuario no acepta la modificación oprimiendo el botón descartar y vuelve al paso 1.
 
 ## POSTCONDICIONES
 - Stock de batería modificado.
