@@ -20,7 +20,7 @@ El usuario registra la baja de stock.
 4. Sistema modifica stock y muestra mensaje de confirmacion.
 
 ## FLUJO ALTERNATIVO  
-1.*. Usuario puede descartar la operacion.
+1. Usuario puede descartar la operacion.
 3.1. Usuario no confirma la operacion y vuelve al paso 1.
 
 ## POSTCONDICIONES  
