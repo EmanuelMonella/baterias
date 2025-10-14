@@ -5,23 +5,25 @@ Usuario
 
 ## PRECONDICIONES  
 Batería en stock
-Estar dentro de la pantalla de stock
 
 ## REQUERIMIENTOS  
-El usuario debe registrar la modificación del stock de una batería
+El usuario puede registrar la modificación de un producto en este caso una batería
 
 ## FLUJO NORMAL  
-1. Sistema muestra las baterías con su stock.
-2. Usuario selecciona la batería y oprime el botón modificar.
-3. Sistema habilita el campo stock para que el usuario pueda modificarlo.
-4. Usuario modifica el campo y oprime aceptar.
-5. Sistema pide confirmanción mediante un cartel.
-6. Usuario confirma la modificación.
-7. Sistema guarda el cambio.
+1. Sistema muestra:  
+   - Datos actuales en modo lectura  
+   - Panel de edición con campos modificables 
+2. Usuario:  
+   - Edita campos permitidos  
+   - Ingresa descripción detallada del cambio  
+3. Sistema:  
+   - Actualiza fecha última modificación  
+   - Recalcula parámetros derivados  
 
 ## FLUJO ALTERNATIVO  
-- **4.1.** Usuario oprime el botón descartar y vuelve al paso 1.
-- **6.1.** Usuario no acepta la modificación oprimiendo el botón descartar y vuelve al paso 1.
+2.1. Modificación crítica → Dispara flujo de aprobación  
+3.1. Cambio en especificaciones → Actualiza documentación técnica asociada  
 
 ## POSTCONDICIONES
-- Stock de batería modificado.
+- Versión anterior archivada  
+- Notificación a departamento técnico  

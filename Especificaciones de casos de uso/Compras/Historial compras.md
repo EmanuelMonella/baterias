@@ -4,22 +4,31 @@
 Usuario
 
 ## PRECONDICIONES
-1. Acceso al módulo de compras 
-
+1. Acceso al módulo de reportes  
+2. Período consultado ≤ 3 años  
 
 ## REQUERIMIENTOS  
-- Historial completo de adquisiciones
+1. Búsqueda multicriterio:  
+   - Proveedor específico o categoría  
+   - Rango de montos (mín-máx)  
+   - Estado de pago (pagado/pendiente)  
+2. Visualización comparativa vs. presupuesto  
 
 ## FLUJO NORMAL 
-1. Sistema muestra las opciones dentro del menu de compras
-2. Usuario seleccion la opcion de historial 
-3. Sistema muestra tabla con el historial de compras
-4. Usuario filtra con el campo marca y oprime el botón filtrar
-5. Sistema muestra tabla con el historial de compras de la marca filtrada
+1. Sistema muestra interfaz con:  
+   - Selector de período personalizado  
+   - Filtros avanzados en panel lateral  
+   - Vista de calendario con eventos clave  
+2. Usuario configura parámetros de búsqueda  
+3. Sistema genera:  
+   - Gráfico evolutivo de compras por categoría  
+   - Tabla detallada con capacidad de ordenamiento múltiple  
+   - Resumen estadístico (promedios, máximos, tendencias)  
 
 ## FLUJO ALTERNATIVO 
-- **2.1** Usuario oprime descartar y sale del menu compras
-
+2.1. Sin filtros aplicados → Muestra último trimestre  
+3.1. Exportación a Excel → Mantiene formato con encabezados personalizados  
 
 ## POSTCONDICIONES  
-- Muestra de tablas con el historial de compras 
+- Generación de log de auditoría con parámetros de búsqueda  
+- Almacenamiento temporal de resultados por 72h  

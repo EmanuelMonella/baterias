@@ -14,12 +14,10 @@
 1. El sistema muestra una pantalla con los datos de los clientes ya precargados
 2. El usuario introduce el nombre del cliente que desea buscar, luego hace click en el boton buscar
 3. El sistema filtra a los clientes que tengan ese nombre y muestra una tabla con los clientes que contienen ese nombre
-4. El usuario selecciona el cliente y hace click en mostrar
-5. El sistema muestra la información del cliente seleccionado
 
 ## FLUJO ALTERNATIVO
-- **1.*.** El usuario puede cancelar la operacion haciendo click en el boton "Salir"
-- **3.1.** El sistema no encuentra ningun cliente con ese nombre y muestra un cartel, donde informa que no hay clientes con ese nombre
+1-* El usuario puede cancelar la operacion haciendo click en el boton "Salir"
+3.1. El sistema no encuentra ningun cliente con ese nombre y muestra un cartel, donde informa que no hay clientes con ese nombre
 
 ## POSTCONDICIONES
 - El cliente fue consultado
