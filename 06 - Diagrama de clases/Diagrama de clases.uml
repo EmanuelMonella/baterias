@@ -1,83 +1,61 @@
 @startuml
 
-class MetodoPago {
-  + tipo: String
-  + entidad: String
-  + registrarMetodo()
-}
-
-class Factura {
-  + numero: String
-  + tipo: String
-  + cuit_emisor: String
-  + cuit_receptor: String
-  + fecha_emision: DateTime
-  + registrar_factura()
-}
-
-class Venta {
-  + cliente: Cliente
-  + factura: Factura
-  + metodo_pago: MetodoPago
-  + historial_ventas()
-  + agregar_item()
-  + registrar_venta()
-}
-
-class Compra {
-  + factura: Factura
-  + proveedor: Proveedor
-  + metodo_pago: MetodoPago
-  + registrar_compra()
-  + agregar_item()
-  + historial_compras()
-}
-
-Venta "1" *-- "1" Factura : genera
-Venta "1" *-- "1" MetodoPago : utiliza
-Compra "1" *-- "1" Factura : recibe
-Compra "1" *-- "1" MetodoPago : utiliza
+' ====== CLASES PRINCIPALES ======
 
 class Bateria {
+  + id_bateria: int
   + marca: String
   + modelo: String
-  + cantidad: Integer
-  + precio_compra: Float
-  + precio_venta: Float
-  + consultar_stock()
-  + registrar_stock()
-}
-
-class ItemTransaccion {
-  + cantidad: Integer
-  + tipo: String
-  + precio_unitario: Float
-  + calcular_subtotal()
-  + agregar_item()
+  + cantidad: int
+  + precio_compra: float
+  + precio_venta: float
+  + actualizarStock(cambio: int)
 }
 
 class Cliente {
+  + id_cliente: int
   + nombre: String
   + vehiculo: String
   + telefono: String
   + direccion: String
-  + registrar_cliente()
-  + modificar_cliente()
-  + eliminar_cliente()
 }
 
 class Proveedor {
+  + id_proveedor: int
   + nombre: String
   + telefono: String
   + cuit: String
-  + registrar_proveedor()
-  + modificar_proveedor()
-  + eliminar_proveedor()
 }
 
-Venta "1" *-- "0..*" ItemTransaccion : contiene
-Compra "1" *-- "0..*" ItemTransaccion : contiene
-Bateria "1" -- "0..*" ItemTransaccion
-Cliente "1" -- "1..*" Venta : realiza
-Proveedor "1" -- "1..*" Compra : realiza
+class Venta {
+  + id_venta: int
+  + fecha: Date
+  + total: float
+  + registrarVenta()
+}
+
+class Compra {
+  + id_compra: int
+  + fecha: Date
+  + total: float
+  + registrarCompra()
+}
+
+class ItemTransaccion {
+  + id_item: int
+  + cantidad: int
+  + precio_unitario: float
+  + calcularSubtotal()
+}
+
+' ====== RELACIONES ======
+
+Cliente "1" -- "0..*" Venta : realiza
+Proveedor "1" -- "0..*" Compra : provee
+
+Venta "1" -- "0..*" ItemTransaccion : contiene
+Compra "1" -- "0..*" ItemTransaccion : contiene
+
+Bateria "1" -- "0..*" ItemTransaccion : seTransacciona
+
 @enduml
