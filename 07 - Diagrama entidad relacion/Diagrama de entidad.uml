@@ -1,0 +1,91 @@
+@startuml
+entity Cliente {
+  *id_cliente : INT
+  --
+  nombre : VARCHAR
+  vehiculo : VARCHAR
+  telefono : VARCHAR
+  direccion : VARCHAR
+  notas : TEXT
+}
+
+entity Proveedor {
+  *id_proveedor : INT
+  --
+  nombre : VARCHAR
+  telefono : VARCHAR
+  cuit : VARCHAR
+  evaluacion : VARCHAR
+}
+
+entity Bateria {
+  *id_bateria : INT
+  --
+  marca : VARCHAR
+  modelo : VARCHAR
+  categoria : VARCHAR
+  cantidad : INT
+  precio_compra : FLOAT
+  precio_venta : FLOAT
+}
+
+entity MetodoPago {
+  *id_metodo_pago : INT
+  --
+  tipo : VARCHAR
+  entidad : VARCHAR
+}
+
+entity Factura {
+  *id_factura : INT
+  --
+  numero : VARCHAR
+  tipo : VARCHAR
+  cuit_emisor : VARCHAR
+  cuit_receptor : VARCHAR
+  fecha_emision : DATETIME
+}
+
+entity Venta {
+  *id_venta : INT
+  --
+  id_cliente : INT
+  id_factura : INT
+  id_metodo_pago : INT
+  fecha_venta : DATETIME
+  total : FLOAT
+}
+
+entity Compra {
+  *id_compra : INT
+  --
+  id_proveedor : INT
+  id_factura : INT
+  id_metodo_pago : INT
+  fecha_compra : DATETIME
+  total : FLOAT
+}
+
+entity ItemTransaccion {
+  *id_item : INT
+  --
+  id_bateria : INT
+  id_venta : INT
+  id_compra : INT
+  cantidad : INT
+  tipo : VARCHAR
+  precio_unitario : FLOAT
+  subtotal : FLOAT
+}
+
+
+Cliente ||--o{ Venta : "realiza"
+Proveedor ||--o{ Compra : "realiza"
+Venta ||--|| Factura : "genera"
+Compra ||--|| Factura : "recibe"
+Venta }o--|| MetodoPago : "utiliza"
+Compra }o--|| MetodoPago : "utiliza"
+Venta ||--o{ ItemTransaccion : "contiene"
+Compra ||--o{ ItemTransaccion : "contiene"
+Bateria ||--o{ ItemTransaccion : "referencia"
+@enduml
