@@ -1,35 +1,56 @@
 @startuml
 actor Usuario
 
-participant "Pantalla Gestión de Baterías" as Pantalla
-participant "Sistema" as Sistema
-participant "Base de Datos" as BD
+Usuario -> PantallaGestiónStock : seleccionarBateria(codigo)
+activate PantallaGestiónStock
+PantallaGestiónStock -> PantallaModificarStock : mostrarFormulario(bateria)
+activate PantallaModificarStock
+PantallaModificarStock --> PantallaGestiónStock : formularioMostrado()
+deactivate PantallaGestiónStock
 
-== Inicio del proceso ==
+Usuario -> PantallaModificarStock : ingresarNuevaCantidad(cantidad)
+Usuario -> PantallaModificarStock : clickGuardar()
 
-Usuario -> Pantalla : Selecciona batería a modificar
-Pantalla -> Sistema : Solicita datos actuales
-Sistema -> BD : Consulta batería por ID
-BD --> Sistema : Devuelve datos actuales
-Sistema -> Pantalla : Muestra datos actuales y panel de edición
+PantallaModificarStock -> ControladorStock : modificarStock(bateria, nuevaCantidad)
+activate ControladorStock
 
-== Edición por parte del usuario ==
+ControladorStock -> Bateria : verificarCodigoExistente(bateria.codigo)
+activate Bateria
 
-Usuario -> Pantalla : Edita campos + Ingresa descripción del cambio
-Pantalla -> Sistema : Envía cambios y descripción
+alt Código existente
+    Bateria --> ControladorStock : true
+    deactivate Bateria
 
-alt Modificación crítica
-    Sistema -> Usuario : Solicita aprobación adicional
-    Usuario -> Sistema : Aprueba modificación
+    ControladorStock -> Bateria : actualizarCantidad(nuevaCantidad)
+    activate Bateria
+    Bateria --> ControladorStock : cantidadActualizada()
+    deactivate Bateria
+
+    ControladorStock -> PantallaModificarStock : mostrarConfirmación("Stock actualizado correctamente")
+    deactivate ControladorStock
+    activate PantallaModificarStock
+    PantallaModificarStock --> Usuario : confirmaciónMostrada()
+    deactivate PantallaModificarStock
+
+else Código no encontrado
+    Bateria --> ControladorStock : false
+    deactivate Bateria
+
+    ControladorStock -> PantallaModificarStock : mostrarAlerta("Código no encontrado")
+    deactivate ControladorStock
+    activate PantallaModificarStock
+    PantallaModificarStock --> Usuario : alertaMostrada()
+    deactivate PantallaModificarStock
 end
 
-== Actualización y confirmación ==
+== Flujo alternativo: cancelar ==
 
-Sistema -> BD : Guarda nueva versión de batería
-BD --> Sistema : Confirmación de actualización
-
-Sistema -> BD : Archiva versión anterior
-Sistema -> BD : Actualiza fecha de última modificación
-Sistema -> Pantalla : Muestra mensaje de confirmación
+Usuario -> PantallaModificarStock : clickCancelar()
+activate PantallaModificarStock
+PantallaModificarStock -> PantallaGestiónStock : volverAGestión()
+activate PantallaGestiónStock
+PantallaGestiónStock --> PantallaModificarStock : vistaPrincipalMostrada()
+deactivate PantallaGestiónStock
+deactivate PantallaModificarStock
 
 @enduml
