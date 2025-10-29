@@ -16,8 +16,8 @@
 4. Sistema filtra a los clientes que tengan ese nombre y muestra los clientes que contienen ese nombre
 
 ## FLUJO ALTERNATIVO
-1-* El usuario puede cancelar la operación seleccionando "Salir"
-3.1. El sistema no encuentra ningun cliente con ese nombre y muestra un cartel, donde informa que no hay clientes con ese nombre
+- **1.*.**  El usuario puede cancelar la operación seleccionando "Salir"
+- **3.1.** El sistema no encuentra ningun cliente con ese nombre y muestra un cartel, donde informa que no hay clientes con ese nombre
 
 ## POSTCONDICIONES
 - El cliente fue consultado
