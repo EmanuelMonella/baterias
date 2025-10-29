@@ -11,7 +11,7 @@
 - El usuario puede eliminar los datos del cliente
 
 ## FLUJO NORMAL
-1. Usuario introduce el nombre del usuario y selecciona FILTRAR
+1. Usuario introduce el nombre del cliente y selecciona FILTRAR
 2. Sistema muestra los datos de los clientes filtrados
 3. Usuario selecciona el cliente que desea eliminar y luego selecciona ELIMINAR
 4. Sistema pide confirmación para eliminar cliente

@@ -4,7 +4,7 @@
 Usuario
 
 ## PRECONDICIONES  
-Usuario logueado 
+- Usuario logueado 
 
 ## REQUERIMIENTOS  
 - Registrar comprar con datos de proveedor, marca, modelo y cantidad
