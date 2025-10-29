@@ -9,21 +9,15 @@ Batería en stock
 ## REQUERIMIENTOS  
 El usuario puede registrar la modificación de un producto en este caso una batería
 
-## FLUJO NORMAL  
-1. Sistema muestra:  
-   - Datos actuales en modo lectura  
-   - Panel de edición con campos modificables 
-2. Usuario:  
-   - Edita campos permitidos  
-   - Ingresa descripción detallada del cambio  
-3. Sistema:  
-   - Actualiza fecha última modificación  
-   - Recalcula parámetros derivados  
+## FLUJO NORMAL
+
+1. Usuario selecciona la batería a modificar y selecciona EDITAR 
+2. Sistema muestra los datos actuales
+3. Usuario edita los datos requeridos y selecciona GUARDAR
+4. Sistema actualiza el STOCK y muestra mensaje GUARDADO CON EXITO 
 
 ## FLUJO ALTERNATIVO  
-2.1. Modificación crítica → Dispara flujo de aprobación  
-3.1. Cambio en especificaciones → Actualiza documentación técnica asociada  
+*.1. Usuario cancela la operacion seleccionando DESCARTAR 
 
 ## POSTCONDICIONES
 - Versión anterior archivada  
-- Notificación a departamento técnico  
