@@ -1,35 +1,32 @@
-# CASO DE USO: Registrar venta
+# CASO DE USO: Registrar compra
 
 ## ACTORES 
 Usuario
 
 ## PRECONDICIONES  
-1. Usuario autenticado con rol "Ventas"  
-2. Stock actualizado de productos  
-3. Cliente registrado en el sistema  
+- Usuario logueado
 
 ## REQUERIMIENTOS  
-1. Validación en tiempo real de stock disponible  
-2. Cálculo automático de totales (subtotal, IVA, total general)  
-3. Integración con sistema tributario para tipos de facturación  
+- Registrar compra con datos de cliente, marca, modelo y cantidad
 
 ## FLUJO NORMAL  
-1. Sistema muestra formulario con:  
-   - Selector de cliente (búsqueda predictiva)  
-   - Listado de productos con stock >0  
-   - Campos: cantidad, precio unitario, descuentos  
-2. Usuario completa datos y selecciona medio de pago (efectivo/tarjeta/transferencia)  
-3. Sistema:  
-   a) Reserva stock temporalmente  
-   b) Genera pre-factura con cálculo de impuestos  
-   c) Muestra resumen para confirmación  
-4. Usuario confirma operación  
+1. Usuario ingresa al modulo VENTAS
+2. Sistema muestra el campo con los datos solicitados Nombre de cliente
+3. Usuario ingresa el nombre del cliente
+4. Sistema muestra los clientes con ese nombre
+5. Usuario selecciona el cliente
+6. Sistema muestra el formulario con los campos marca, modelo y cantidad
+7. Usuario completa el formulario y selecciona GUARDAR
+8. Sistema valida los datos ingresados y pide confirmación
+9. Usuario confirma la operación 
+10. Sistema muestra mensaje "Venta registrada" y modifica el stock 
 
 ## FLUJO ALTERNATIVO  
-2.1. Stock insuficiente → Notifica "Cantidad supera stock disponible"  
-3.1. Datos fiscales incompletos → Solicita completar información requerida  
-4.1. Cancelación → Libera stock reservado y cancela transacción  
+- **1.*.** El usuario puede cancelar seleccionando DESCARTAR
+- **4.1.** EL sistema no encuentra un cliente con el nombre ingresado y muestra mensaje "Cliente no registrado"
+- **8.1.** El sistema encuentra errores en la validación del formulario, resalta los campos invalidos y vuelve al paso 3
+- **9.1.** El usuario no confirma la operación y vuelve al paso 2
 
 ## POSTCONDICIONES
-- Stock actualizado en base de datos  
-- Registro de venta en historial con estado "Completada" 
+- Registro de venta en base de datos
+- Actualización de inventario automática  

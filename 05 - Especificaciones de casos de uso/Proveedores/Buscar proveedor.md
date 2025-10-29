@@ -1,24 +1,23 @@
-# CASO DE USO: Buscar proveedor  
+# CASO DE USO: Consultar proveedor
 
-## ACTORES  
-Usuario
+## ACTORES
+- Usuario
 
-## PRECONDICIONES  
-1. Tener permisos de consulta  
-2. Estar en la pantalla "Listado de Proveedores"
+## PRECONDICIONES
+- Estar logueado al sistema
 
-## REQUERIMIENTOS  
-1. Búsqueda por: Nombre (coincidencia parcial), CUIT/DNI (exacto)  
-2. Resultados en tabla con columnas: Nombre, Teléfono, CUIT/DNI, Última compra
+## REQUERIMIENTOS
+- El sistema debe facilitar la busqueda de cada proveedor
 
-## FLUJO NORMAL 
-1. Sistema muestra campo de búsqueda y tabla vacía  
-2. Usuario ingresa criterios y presiona "Buscar"  
-3. Sistema filtra proveedores y muestra resultados paginados
+## FLUJO NORMAL
+1. Usuario selecciona la pantalla de PROVEEDORES
+2. Sistema muestra una pantalla con los datos de los proveedores ya precargados
+3. Usuario introduce el nombre del proveedor que desea buscar, luego selecciona BUSCAR
+4. Sistema filtra a los proveedores que tengan ese nombre y muestra los proveedores que contienen ese nombre
 
-## FLUJO ALTERNATIVO 
-2.1. Usuario vacía criterios → Sistema muestra últimos 20 registros  
-3.1. Sin resultados → Muestra "No se encontraron proveedores"
+## FLUJO ALTERNATIVO
+- **1.*.**  El usuario puede cancelar la operación seleccionando "Salir"
+- **3.1.** El sistema no encuentra ningun cliente con ese nombre y muestra un cartel, donde informa que no hay clientes con ese nombre
 
-## POSTCONDICIONES  
-Listado actualizado según criterios de búsqueda
+## POSTCONDICIONES
+- El proveedor fue consultado

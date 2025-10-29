@@ -1,4 +1,4 @@
-# CASO DE USO: Consultar histórico ventas
+# CASO DE USO: Consultar histórico compra
 
 ## ACTORES  
 Usuario
@@ -7,7 +7,7 @@ Usuario
 1. Usuario logueado 
 
 ## REQUERIMIENTOS  
-1. Usuario puede consultar historial completo de ventas
+1. Usuario puede consultar historial completo de adquisiciones
 
 ## FLUJO NORMAL 
 1. Usuario ingresa al apartado REPORTES

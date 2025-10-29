@@ -1,25 +1,26 @@
 # CASO DE USO: Eliminar proveedor
 
-## ACTORES  
-Usuario 
+## ACTORES
+- Usuario
 
-## PRECONDICIONES 
-1. Proveedor sin compras registradas en últimos 6 meses  
-2. Proveedor seleccionado en listado
+## PRECONDICIONES
+- Estar logueado al sistema
 
-## REQUERIMIENTOS  
-1. Validar historial de compras asociado  
-2. Registro de auditoría con usuario y fecha de eliminación
+## REQUERIMIENTOS
+- El usuario puede eliminar los datos del proveedor
 
-## FLUJO NORMAL  
-1. Usuario selecciona "Eliminar" en registro  
-2. Sistema muestra confirmación con datos del proveedor  
-3. Usuario confirma eliminación  
-4. Sistema desactiva proveedor (borrado lógico)
+## FLUJO NORMAL
+1. Usuario introduce el nombre del proveedor y selecciona FILTRAR
+2. Sistema muestra los datos de los proveedores filtrados
+3. Usuario selecciona el proveedor que desea eliminar y luego selecciona ELIMINAR
+4. Sistema pide confirmación para eliminar proveedor
+5. Usuario confirma la eliminación
+6. Sistema elimina al proveedor de la base de datos
 
-## FLUJO ALTERNATIVO  
-2.1. Usuario cancela → Vuelve al listado  
-3.1. Proveedor con compras activas → Muestra "No se puede eliminar por historial existente"
+## FLUJO ALTERNATIVO
+- **1.*.** El usuario puede cancelar la operación seleccionando "Salir"
+- **4.1.** El usuario no confirma la eliminación y se vuelve a la pantalla anterior
 
-## POSTCONDICIONES  
-Proveedor marcado como inactivo en el sistema
+## POSTCONDICIONES
+- El proveedor eliminado de la base de datos
+

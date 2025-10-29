@@ -45,12 +45,8 @@
   - Elección de productos
   - Configuración de precios
   - Opciones de pago (efectivo/tarjeta/transferencia)
-- Facturación electrónica con numeración automática
-- Reportes mensuales detallados:
-  - Ventas por categoría
-  - Métodos de pago más usados
-  - Clientes frecuentes
 - Ajuste automático de inventario post-venta
+- Historial completo de ventas
 
 ## Gestión de Compras
 - Registro de compras con:
@@ -58,7 +54,5 @@
   - Detalle de productos adquiridos
   - Precios unitarios y totales
   - Condiciones de pago
-- Sistema de facturación de compras
 - Historial completo de adquisiciones
-- Alertas de stock mínimo por producto
-- Integración con órdenes de compra
+- Ajuste automático de inventario post-compra
