@@ -17,7 +17,7 @@ El usuario puede registrar la modificación de un producto en este caso una bate
 4. Sistema actualiza el STOCK y muestra mensaje GUARDADO CON EXITO 
 
 ## FLUJO ALTERNATIVO  
-*.1. Usuario cancela la operacion seleccionando DESCARTAR 
+- ***.1.** Usuario cancela la operacion seleccionando DESCARTAR 
 
 ## POSTCONDICIONES
 - Versión anterior archivada  
