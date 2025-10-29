@@ -16,7 +16,7 @@ El usuario debe registrar una batería.
 2. El sistema abre la pantalla de gestión de stock 
 3. El usuario selecciona en el botón DAR DE ALTA 
 4. El sistema muestra la pantalla ALTA DE STOCK con el formulario correspondiente  
-5. El usuario completa los campos requeridos y selecciona GUARDAR
+5. El usuario completa los campos MARCA, MODELO, STOCK y selecciona GUARDAR
 6. El sistema valida los datos ingresados y registra el nuevo STOCK
 
 ## FLUJO ALTERNATIVO  
