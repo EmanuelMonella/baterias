@@ -1,0 +1,29 @@
+@startuml
+actor Usuario
+
+== Registrar Proveedor ==
+
+Usuario -> PantallaProveedores : seleccionarOpcion("Proveedores")
+PantallaProveedores -> ControladorProveedores : abrirPantallaProveedores()
+
+Usuario -> PantallaProveedores : completarDatos(nombre, cuit, telefono)
+Usuario -> PantallaProveedores : seleccionarBoton("Agregar")
+PantallaProveedores -> ControladorProveedores : validarDatos()
+
+alt Datos válidos
+    ControladorProveedores -> Proveedor : crearProveedor(nombre, cuit, telefono)
+    Proveedor --> ControladorProveedores : nuevoProveedor
+    ControladorProveedores -> BaseDeDatos : registrarProveedor(nuevoProveedor)
+    BaseDeDatos --> ControladorProveedores : confirmación
+    ControladorProveedores --> PantallaProveedores : mostrarMensaje("Proveedor registrado correctamente")
+else Datos inválidos
+    ControladorProveedores --> PantallaProveedores : mostrarMensaje("Datos inválidos o incompletos")
+    PantallaProveedores -> ControladorProveedores : retornarPasoAnterior()
+end
+
+== Alternativa: Descartar ==
+Usuario -> PantallaProveedores : seleccionarBoton("Descartar")
+PantallaProveedores -> ControladorProveedores : cancelarOperacion()
+ControladorProveedores --> PantallaProveedores : cerrarPantalla()
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+actor Usuario
+
+== Consultar Histórico de Ventas ==
+
+Usuario -> PantallaReportes : ingresarModulo("REPORTES")
+PantallaReportes -> ControladorReportes : mostrarCamposBusqueda()
+
+Usuario -> PantallaReportes : ingresarMarca(marca)
+Usuario -> PantallaReportes : seleccionarOperacion("VENTA o COMPRA")
+PantallaReportes -> ControladorReportes : buscarHistorial(marca, operacion)
+ControladorReportes -> Venta : obtenerHistorial(marca, operacion)
+Venta --> ControladorReportes : listaResultados
+
+alt Registros encontrados
+    ControladorReportes --> PantallaReportes : mostrarHistorial(listaResultados)
+else No hay registros
+    ControladorReportes --> PantallaReportes : mostrarMensaje("NO HAY REGISTROS")
+end
+
+== Alternativa: Cancelar ==
+Usuario -> PantallaReportes : seleccionarBoton("SALIR")
+PantallaReportes -> ControladorReportes : cancelarOperacion()
+ControladorReportes --> PantallaReportes : cerrarPantalla()
+
+@enduml

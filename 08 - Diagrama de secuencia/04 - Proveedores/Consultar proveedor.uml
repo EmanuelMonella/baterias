@@ -1,0 +1,32 @@
+@startuml
+actor Usuario
+participant PantallaProveedores
+participant ControladorProveedores
+participant Proveedor
+
+== Consultar Proveedor ==
+
+Usuario -> PantallaProveedores : seleccionarPantalla("PROVEEDORES")
+PantallaProveedores -> ControladorProveedores : mostrarProveedoresPrecargados()
+ControladorProveedores -> Proveedor : obtenerListaProveedores()
+Proveedor --> ControladorProveedores : listaProveedores
+ControladorProveedores --> PantallaProveedores : mostrarListaProveedores(listaProveedores)
+
+Usuario -> PantallaProveedores : ingresarNombreProveedor(nombre)
+Usuario -> PantallaProveedores : seleccionarBoton("BUSCAR")
+PantallaProveedores -> ControladorProveedores : buscarProveedor(nombre)
+ControladorProveedores -> Proveedor : filtrarPorNombre(nombre)
+Proveedor --> ControladorProveedores : listaFiltrada
+
+alt Proveedores encontrados
+    ControladorProveedores --> PantallaProveedores : mostrarProveedores(listaFiltrada)
+else No hay proveedores
+    ControladorProveedores --> PantallaProveedores : mostrarMensaje("No hay proveedores con ese nombre")
+end
+
+== Alternativa: Cancelar ==
+Usuario -> PantallaProveedores : seleccionarBoton("Salir")
+PantallaProveedores -> ControladorProveedores : cancelarOperacion()
+ControladorProveedores --> PantallaProveedores : cerrarPantalla()
+
+@enduml

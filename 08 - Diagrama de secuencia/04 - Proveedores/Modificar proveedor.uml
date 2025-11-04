@@ -1,0 +1,35 @@
+@startuml
+actor Usuario
+
+== Modificar Proveedor ==
+
+Usuario -> PantallaProveedores : ingresarNombreProveedor(nombre)
+Usuario -> PantallaProveedores : seleccionarBoton("FILTRAR")
+PantallaProveedores -> ControladorProveedores : buscarProveedor(nombre)
+ControladorProveedores -> Proveedor : filtrarPorNombre(nombre)
+Proveedor --> ControladorProveedores : listaFiltrada
+ControladorProveedores --> PantallaProveedores : mostrarProveedores(listaFiltrada)
+
+Usuario -> PantallaProveedores : seleccionarProveedor()
+Usuario -> PantallaProveedores : seleccionarBoton("Modificar")
+PantallaProveedores -> ControladorProveedores : mostrarPantallaModificar(proveedor)
+
+Usuario -> PantallaProveedores : modificarCampos(nombre, cuit, telefono)
+Usuario -> PantallaProveedores : seleccionarBoton("Guardar")
+PantallaProveedores -> ControladorProveedores : validarDatos()
+
+alt Datos válidos
+    ControladorProveedores -> BaseDeDatos : actualizarProveedor(datos)
+    BaseDeDatos --> ControladorProveedores : confirmación
+    ControladorProveedores --> PantallaProveedores : mostrarMensaje("Proveedor modificado correctamente")
+else Datos inválidos
+    ControladorProveedores --> PantallaProveedores : mostrarMensaje("Datos inválidos o incompletos")
+    PantallaProveedores -> ControladorProveedores : retornarPasoAnterior()
+end
+
+== Alternativa: Descartar / Salir ==
+Usuario -> PantallaProveedores : seleccionarBoton("Salir")
+PantallaProveedores -> ControladorProveedores : cancelarOperacion()
+ControladorProveedores --> PantallaProveedores : cerrarPantalla()
+
+@enduml

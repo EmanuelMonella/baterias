@@ -1,0 +1,34 @@
+@startuml
+actor Usuario
+
+== Eliminar Proveedor ==
+
+Usuario -> PantallaProveedores : ingresarNombreProveedor(nombre)
+Usuario -> PantallaProveedores : seleccionarBoton("FILTRAR")
+PantallaProveedores -> ControladorProveedores : buscarProveedor(nombre)
+ControladorProveedores -> Proveedor : filtrarPorNombre(nombre)
+Proveedor --> ControladorProveedores : listaFiltrada
+ControladorProveedores --> PantallaProveedores : mostrarProveedores(listaFiltrada)
+
+Usuario -> PantallaProveedores : seleccionarProveedor()
+Usuario -> PantallaProveedores : seleccionarBoton("ELIMINAR")
+PantallaProveedores -> ControladorProveedores : confirmarEliminacion()
+
+alt Confirmar eliminación
+    Usuario -> PantallaProveedores : confirmar("Sí")
+    PantallaProveedores -> ControladorProveedores : eliminarProveedor()
+    ControladorProveedores -> BaseDeDatos : eliminarRegistroProveedor(id)
+    BaseDeDatos --> ControladorProveedores : confirmación
+    ControladorProveedores --> PantallaProveedores : mostrarMensaje("Proveedor eliminado correctamente")
+else Cancelar
+    Usuario -> PantallaProveedores : confirmar("No")
+    PantallaProveedores -> ControladorProveedores : cancelarEliminacion()
+    ControladorProveedores --> PantallaProveedores : mostrarPantallaAnterior()
+end
+
+== Alternativa: Salir ==
+Usuario -> PantallaProveedores : seleccionarBoton("Salir")
+PantallaProveedores -> ControladorProveedores : cancelarOperacion()
+ControladorProveedores --> PantallaProveedores : cerrarPantalla()
+
+@enduml
