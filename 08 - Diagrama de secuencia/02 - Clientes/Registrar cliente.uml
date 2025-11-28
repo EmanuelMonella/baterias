@@ -1,0 +1,47 @@
+@startuml
+
+== Registrar Cliente ==
+
+actor Usuario
+
+Usuario -> PantallaClientes : seleccionarOpcion("Clientes")
+activate PantallaClientes
+
+PantallaClientes -> ControladorClientes : abrirPantallaClientes()
+activate ControladorClientes
+ControladorClientes --> PantallaClientes : <<pantallaClientesAbierta>>
+deactivate ControladorClientes
+PantallaClientes --> Usuario : <<>>
+
+Usuario -> PantallaClientes : completarDatos(nombre, telefono, direccion)
+
+PantallaClientes -> ControladorClientes : validarDatos()
+activate ControladorClientes
+
+alt Datos válidos
+    ControladorClientes -> Cliente : crearCliente(nombre, telefono, direccion)
+    activate Cliente
+    Cliente --> ControladorClientes : <<nuevoCliente>>
+    deactivate Cliente
+
+    ControladorClientes -> BaseDeDatos : registrarCliente()
+    activate BaseDeDatos
+    BaseDeDatos --> ControladorClientes : <<confirmación>>
+    deactivate BaseDeDatos
+
+    ControladorClientes --> PantallaClientes : <<cliente registrado>>
+    PantallaClientes --> Usuario : <<Mensaje - "Cliente registrado">>
+    deactivate ControladorClientes
+
+else Datos inválidos
+    ControladorClientes --> PantallaClientes : <<datos invalidos>>
+    PantallaClientes --> Usuario : <<Mensaje - "Datos inválidos">>
+    deactivate ControladorClientes
+end
+
+== Alternativa: Descartar ==
+Usuario -> PantallaClientes : seleccionarBoton("Descartar")
+PantallaClientes --> Usuario : <<>>
+deactivate PantallaClientes
+
+@enduml

@@ -1,0 +1,74 @@
+@startuml
+actor Usuario
+
+Usuario -> PantallaGestiónStock : seleccionarOpciónStock()
+PantallaGestiónStock -> PantallaAltaStock : mostrarFormularioAlta()
+
+Usuario -> PantallaAltaStock : completarFormulario(bateria)
+Usuario -> PantallaAltaStock : clickGuardar()
+
+PantallaAltaStock -> ControladorStock : registrarBateria(bateria)
+
+ControladorStock -> Bateria : verificarCodigoExistente(bateria.codigo)
+alt Código existente
+    Bateria --> ControladorStock : existe = true
+    ControladorStock -> PantallaAltaStock : mostrarAlerta("CÓDIGO YA EXISTENTE")
+    return
+else Código no existente
+    Bateria --> ControladorStock : existe = false
+    ControladorStock -> Bateria : registrarStock(bateria)
+    ControladorStock -> Auditoría : registrarEvento("Alta batería: " + bateria.codigo)
+    ControladorStock -> PantallaAltaSt@startuml
+
+== Consultar Cliente ==
+
+actor Usuario
+
+Usuario -> PantallaClientes : seleccionarPantalla("CLIENTES")
+activate PantallaClientes
+
+PantallaClientes -> ControladorClientes : mostrarClientesPrecargados()
+activate ControladorClientes
+
+ControladorClientes -> Cliente : obtenerListaClientes()
+activate Cliente
+Cliente --> ControladorClientes : <<listaClientes>>
+deactivate Cliente
+
+ControladorClientes --> PantallaClientes : <<mostrarListaClientes>>
+deactivate ControladorClientes
+PantallaClientes --> Usuario : <<lista clientes>>
+
+Usuario -> PantallaClientes : ingresarNombreCliente(nombre)
+
+PantallaClientes -> ControladorClientes : buscarCliente(nombre)
+activate ControladorClientes
+
+ControladorClientes -> Cliente : filtrarPorNombre(nombre)
+activate Cliente
+Cliente --> ControladorClientes : <<listaFiltrada>>
+deactivate Cliente
+
+alt Clientes encontrados
+    ControladorClientes --> PantallaClientes : <<mostrarClientes>>
+    PantallaClientes --> Usuario : <<lista clientes filtrados>>
+else No hay clientes
+    ControladorClientes --> PantallaClientes : <<Sin clientes>>
+    PantallaClientes --> Usuario : <<mensaje - "No hay clientes">>
+end
+deactivate ControladorClientes
+
+== Alternativa: Cancelar ==
+Usuario -> PantallaClientes : seleccionarBoton("Salir")
+PantallaClientes --> Usuario : <<>>
+deactivate PantallaClientes
+
+@enduml
+ock : mostrarConfirmación("Batería registrada")
+end
+
+== Flujo alternativo: cancelar ==
+Usuario -> PantallaAltaStock : clickDescartar()
+PantallaAltaStock -> PantallaGestiónStock : volverAGestión()
+
+@enduml

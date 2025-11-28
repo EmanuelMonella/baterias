@@ -1,46 +1,64 @@
 @startuml
-actor Usuario
 
 == Registrar Venta ==
 
-Usuario -> PantallaVentas : ingresarModulo("VENTAS")
-PantallaVentas -> ControladorVentas : mostrarCampoCliente()
+actor Usuario
 
-Usuario -> PantallaVentas : ingresarNombreCliente(nombre)
+Usuario -> PantallaVentas : ingresarCliente(nombre)
+activate PantallaVentas
 PantallaVentas -> ControladorVentas : buscarCliente(nombre)
-ControladorVentas -> Cliente : obtenerPorNombre(nombre)
-Cliente --> ControladorVentas : listaClientes
+activate ControladorVentas
 
-alt Clientes encontrados
-    ControladorVentas --> PantallaVentas : mostrarClientes(listaClientes)
-    Usuario -> PantallaVentas : seleccionarCliente()
-    PantallaVentas -> ControladorVentas : mostrarFormularioCompra()
-    
-    Usuario -> PantallaVentas : completarFormulario(marca, modelo, cantidad)
-    Usuario -> PantallaVentas : seleccionarBoton("GUARDAR")
-    PantallaVentas -> ControladorVentas : validarDatos()
-    
-    alt Datos válidos
-        ControladorVentas -> Usuario : solicitarConfirmacion()
-        Usuario -> PantallaVentas : confirmar("Sí")
-        PantallaVentas -> ControladorVentas : registrarCompra()
-        ControladorVentas -> BaseDeDatos : guardarCompra(datos)
-        BaseDeDatos --> ControladorVentas : confirmación
-        ControladorVentas -> Inventario : actualizarStock(marca, cantidad)
-        Inventario --> ControladorVentas : stockActualizado
-        ControladorVentas --> PantallaVentas : mostrarMensaje("Venta registrada")
-    else Datos inválidos
-        ControladorVentas --> PantallaVentas : mostrarErroresValidacion()
-        PantallaVentas -> ControladorVentas : retornarPaso(3)
-    end
-    
-else Cliente no encontrado
-    ControladorVentas --> PantallaVentas : mostrarMensaje("Cliente no registrado")
+ControladorVentas -> Clientes : buscarPorNombre(nombre)
+activate Clientes
+
+alt cliente encontrado
+    Clientes --> ControladorVentas : <<lista>>
+    deactivate Clientes
+    ControladorVentas --> PantallaVentas : <<clientesEncontrados>>
+    PantallaVentas --> Usuario : <<Lista de clientes>>
+    Usuario -> PantallaVentas : seleccionarCliente
+else no encontrado
+    Clientes --> ControladorVentas : <<sinResultados>>
+    deactivate Clientes
+    ControladorVentas --> PantallaVentas : <<Cliente no encontrado>>
+    PantallaVentas --> Usuario : <<mensaje="Cliente no registrado">>
 end
 
-== Alternativa: Cancelar ==
-Usuario -> PantallaVentas : seleccionarBoton("DESCARTAR")
+Usuario -> PantallaVentas : completarDatos(marca, modelo, cantidad)
+PantallaVentas -> ControladorVentas : validarDatos(marca, modelo, cantidad)
+
+activate ControladorVentas
+alt datos válidos
+    ControladorVentas --> PantallaVentas : <<solicitarConfirmacion>>
+    Usuario -> PantallaVentas : confirmar
+    PantallaVentas -> ControladorVentas : registrarVenta
+
+    ControladorVentas -> Venta : crear
+    activate Venta
+
+    Venta -> Inventario : descontarStock
+    activate Inventario
+    Inventario --> Venta : <<stockActualizado>>
+    deactivate Inventario
+
+    Venta --> ControladorVentas : <<confirmada>>
+    deactivate Venta
+
+    ControladorVentas --> PantallaVentas : <<Venta registrada>>
+    PantallaVentas --> Usuario : <<mensaje="Venta Registrada">>
+
+else datos inválidos
+    ControladorVentas --> PantallaVentas : <<datosInvalidos>>
+    PantallaVentas --> Usuario : <<mensaje="Datos Invalidos">>
+end
+
+== Cancelación ==
+Usuario -> PantallaVentas : cancelar()
 PantallaVentas -> ControladorVentas : cancelarOperacion()
-ControladorVentas --> PantallaVentas : cerrarPantalla()
+ControladorVentas --> PantallaVentas : <<cancelado>>
+deactivate ControladorVentas
+PantallaVentas --> Usuario : <<Venta cancelada>>
+deactivate PantallaVentas
 
 @enduml

@@ -1,26 +1,37 @@
 @startuml
+
+== Consultar Histórico Venta ==
+
 actor Usuario
 
-== Consultar Histórico de Ventas ==
+Usuario -> PantallaReportes : ingresarDatos(marca, tipo="VENTA")
+activate PantallaReportes
+PantallaReportes -> ControladorReportes : buscarHistorial(marca, tipo)
+activate ControladorReportes
 
-Usuario -> PantallaReportes : ingresarModulo("REPORTES")
-PantallaReportes -> ControladorReportes : mostrarCamposBusqueda()
+ControladorReportes -> HistorialVentas : consultar(marca, tipo)
+activate HistorialVentas
 
-Usuario -> PantallaReportes : ingresarMarca(marca)
-Usuario -> PantallaReportes : seleccionarOperacion("VENTA o COMPRA")
-PantallaReportes -> ControladorReportes : buscarHistorial(marca, operacion)
-ControladorReportes -> Venta : obtenerHistorial(marca, operacion)
-Venta --> ControladorReportes : listaResultados
+alt registros encontrados
+    HistorialVentas --> ControladorReportes : <<listaRegistros>>
+    ControladorReportes --> PantallaReportes : <<resultadosEncontrados>>
+    PantallaReportes --> Usuario : <<historialMostrado>>
 
-alt Registros encontrados
-    ControladorReportes --> PantallaReportes : mostrarHistorial(listaResultados)
-else No hay registros
-    ControladorReportes --> PantallaReportes : mostrarMensaje("NO HAY REGISTROS")
+else sin registros
+    HistorialVentas --> ControladorReportes : <<sinDatos>>
+    deactivate HistorialVentas
+    ControladorReportes --> PantallaReportes : <<mensaje="NO HAY REGISTROS">>
+
+    PantallaReportes --> Usuario : <<avisoMostrado>>
+    
 end
 
-== Alternativa: Cancelar ==
-Usuario -> PantallaReportes : seleccionarBoton("SALIR")
-PantallaReportes -> ControladorReportes : cancelarOperacion()
-ControladorReportes --> PantallaReportes : cerrarPantalla()
+== Cancelar ==
+Usuario -> PantallaReportes : cancelar
+PantallaReportes -> ControladorReportes : cancelarConsulta
+ControladorReportes --> PantallaReportes : <<cancelado>>
+deactivate ControladorReportes
+PantallaReportes --> Usuario : <<operacionCancelada>>
+deactivate PantallaReportes
 
 @enduml

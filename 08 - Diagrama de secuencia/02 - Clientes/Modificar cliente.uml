@@ -1,0 +1,54 @@
+@startuml
+
+== Modificar Cliente ==
+
+actor Usuario
+
+Usuario -> PantallaClientes : ingresarNombreCliente(nombre)
+activate PantallaClientes
+
+PantallaClientes -> ControladorClientes : buscarCliente(nombre)
+activate ControladorClientes
+
+ControladorClientes -> Cliente : filtrarPorNombre(nombre)
+activate Cliente
+Cliente --> ControladorClientes : <<listaFiltrada>>
+deactivate Cliente
+
+ControladorClientes --> PantallaClientes : <<mostrarClientes>>
+deactivate ControladorClientes
+
+Usuario -> PantallaClientes : seleccionarCliente()
+
+PantallaClientes -> ControladorClientes : abrirPantallaModificacion()
+activate ControladorClientes
+ControladorClientes --> PantallaClientes : <<pantallaModificacion>>
+deactivate ControladorClientes
+
+Usuario -> PantallaClientes : modificarCampos(nombre, telefono, direccion)
+
+PantallaClientes -> ControladorClientes : validarDatos()
+activate ControladorClientes
+
+alt Datos válidos
+    ControladorClientes -> BaseDeDatos : actualizarCliente(datos)
+    activate BaseDeDatos
+    BaseDeDatos --> ControladorClientes : <<confirmación>>
+    deactivate BaseDeDatos
+
+    ControladorClientes --> PantallaClientes : <<Cliente modificado>>
+    PantallaClientes --> Usuario : <<Mensaje - "Cliente modificado">>
+    deactivate ControladorClientes
+
+else Datos inválidos
+    ControladorClientes --> PantallaClientes : <<datos invalidos>>
+    PantallaClientes --> Usuario : <<Mensaje - "Datos inválidos">>
+    deactivate ControladorClientes
+end
+
+== Alternativa: Descartar / Salir ==
+Usuario -> PantallaClientes : seleccionarBoton("SALIR")
+PantallaClientes --> Usuario : <<>>
+deactivate PantallaClientes
+
+@enduml

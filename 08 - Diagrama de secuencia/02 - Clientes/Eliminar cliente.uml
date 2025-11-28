@@ -1,0 +1,53 @@
+@startuml
+
+actor Usuario
+
+== Eliminar Cliente ==
+
+Usuario -> PantallaClientes : ingresarNombreCliente(nombre)
+activate PantallaClientes
+
+PantallaClientes -> ControladorClientes : buscarCliente(nombre)
+activate ControladorClientes
+
+ControladorClientes -> Cliente : filtrarPorNombre(nombre)
+activate Cliente
+Cliente --> ControladorClientes : <<listaFiltrada>>
+deactivate Cliente
+
+ControladorClientes --> PantallaClientes : <<mostrarClientes>>
+deactivate ControladorClientes
+
+Usuario -> PantallaClientes : eliminarCliente()
+PantallaClientes -> Usuario : <<confirmarEliminacion>>
+
+alt Confirmación positiva
+    Usuario -> PantallaClientes : confirmar("Sí")
+    PantallaClientes -> ControladorClientes : eliminarCliente()
+    activate ControladorClientes
+
+    ControladorClientes -> BaseDeDatos : eliminarRegistroCliente(id)
+    activate BaseDeDatos
+    BaseDeDatos --> ControladorClientes : <<confirmación>>
+    deactivate BaseDeDatos
+    
+    ControladorClientes --> PantallaClientes : <<cliente eliminado>>
+    PantallaClientes --> Usuario : <<Mensaje - "Cliente eliminado">>
+    deactivate ControladorClientes
+
+else Cancelación
+    Usuario -> PantallaClientes : confirmar("No")
+    PantallaClientes -> ControladorClientes : cancelarEliminacion()
+    activate ControladorClientes
+
+    ControladorClientes --> PantallaClientes : <<mostrarPantallaAnterior>>
+    deactivate ControladorClientes
+    PantallaClientes --> Usuario : <<Mensaje - "Operación cancelada">>
+end
+
+== Alternativa: Salir ==
+Usuario -> PantallaClientes : seleccionarBoton("Salir")
+PantallaClientes --> Usuario : <<>>
+deactivate PantallaClientes
+
+@enduml
