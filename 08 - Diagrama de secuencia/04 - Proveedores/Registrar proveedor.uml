@@ -1,29 +1,42 @@
 @startuml
-actor Usuario
-
 == Registrar Proveedor ==
 
 Usuario -> PantallaProveedores : seleccionarOpcion("Proveedores")
+activate PantallaProveedores
 PantallaProveedores -> ControladorProveedores : abrirPantallaProveedores()
-
+activate ControladorProveedores
+ControladorProveedores --> PantallaProveedores : <<pantallaProveedoresAbierta>>
+deactivate ControladorProveedores
+PantallaProveedores --> Usuario : <<>>
 Usuario -> PantallaProveedores : completarDatos(nombre, cuit, telefono)
-Usuario -> PantallaProveedores : seleccionarBoton("Agregar")
+
 PantallaProveedores -> ControladorProveedores : validarDatos()
+activate ControladorProveedores
 
 alt Datos válidos
     ControladorProveedores -> Proveedor : crearProveedor(nombre, cuit, telefono)
-    Proveedor --> ControladorProveedores : nuevoProveedor
-    ControladorProveedores -> BaseDeDatos : registrarProveedor(nuevoProveedor)
-    BaseDeDatos --> ControladorProveedores : confirmación
-    ControladorProveedores --> PantallaProveedores : mostrarMensaje("Proveedor registrado correctamente")
+    activate Proveedor
+    Proveedor --> ControladorProveedores : <<nuevoProveedor>>
+    deactivate Proveedor
+
+    ControladorProveedores -> BaseDeDatos : registrarProveedor()
+    activate BaseDeDatos
+    BaseDeDatos --> ControladorProveedores : <<confirmación>>
+    deactivate BaseDeDatos
+
+    ControladorProveedores --> PantallaProveedores : <<proveedor registrado>>
+    PantallaProveedores --> Usuario : <<mensaje: "Proveedor registrado">>
+    deactivate ControladorProveedores
+
 else Datos inválidos
-    ControladorProveedores --> PantallaProveedores : mostrarMensaje("Datos inválidos o incompletos")
-    PantallaProveedores -> ControladorProveedores : retornarPasoAnterior()
+    ControladorProveedores --> PantallaProveedores : <<datos invalidos>>
+    PantallaProveedores --> Usuario : <<mensaje: "Datos inválidos">>
+    deactivate ControladorProveedores
 end
 
 == Alternativa: Descartar ==
 Usuario -> PantallaProveedores : seleccionarBoton("Descartar")
-PantallaProveedores -> ControladorProveedores : cancelarOperacion()
-ControladorProveedores --> PantallaProveedores : cerrarPantalla()
+PantallaProveedores --> Usuario : <<>>
+deactivate PantallaProveedores
 
 @enduml

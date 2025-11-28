@@ -1,34 +1,55 @@
 @startuml
+
 actor Usuario
 
 == Eliminar Proveedor ==
 
 Usuario -> PantallaProveedores : ingresarNombreProveedor(nombre)
-Usuario -> PantallaProveedores : seleccionarBoton("FILTRAR")
+activate PantallaProveedores
+
 PantallaProveedores -> ControladorProveedores : buscarProveedor(nombre)
+activate ControladorProveedores
+
 ControladorProveedores -> Proveedor : filtrarPorNombre(nombre)
-Proveedor --> ControladorProveedores : listaFiltrada
-ControladorProveedores --> PantallaProveedores : mostrarProveedores(listaFiltrada)
+activate Proveedor
+Proveedor --> ControladorProveedores : <<listaFiltrada>>
+deactivate Proveedor
 
-Usuario -> PantallaProveedores : seleccionarProveedor()
-Usuario -> PantallaProveedores : seleccionarBoton("ELIMINAR")
-PantallaProveedores -> ControladorProveedores : confirmarEliminacion()
+ControladorProveedores --> PantallaProveedores : <<mostrarProveedores>>
+deactivate ControladorProveedores
 
-alt Confirmar eliminación
+Usuario -> PantallaProveedores : eliminarProveedor()
+PantallaProveedores -> Usuario : <<confirmarEliminacion>>
+
+alt Confirmación positiva
     Usuario -> PantallaProveedores : confirmar("Sí")
     PantallaProveedores -> ControladorProveedores : eliminarProveedor()
+    activate ControladorProveedores
+
+    
     ControladorProveedores -> BaseDeDatos : eliminarRegistroProveedor(id)
-    BaseDeDatos --> ControladorProveedores : confirmación
-    ControladorProveedores --> PantallaProveedores : mostrarMensaje("Proveedor eliminado correctamente")
-else Cancelar
+    activate BaseDeDatos
+    BaseDeDatos --> ControladorProveedores : <<confirmación>>
+    deactivate BaseDeDatos
+    
+    ControladorProveedores --> PantallaProveedores : <<proveedor eliminado>>
+    PantallaProveedores --> Usuario : <<Mensaje - "Proveedore eliminado">>
+    deactivate ControladorProveedores
+
+else Cancelación
     Usuario -> PantallaProveedores : confirmar("No")
     PantallaProveedores -> ControladorProveedores : cancelarEliminacion()
-    ControladorProveedores --> PantallaProveedores : mostrarPantallaAnterior()
+    activate ControladorProveedores
+
+    ControladorProveedores --> PantallaProveedores : <<mostrarPantallaAnterior>>
+    deactivate ControladorProveedores
+    PantallaProveedores --> Usuario : <<Mensaje - "Operacion cancelada">>
 end
 
 == Alternativa: Salir ==
 Usuario -> PantallaProveedores : seleccionarBoton("Salir")
-PantallaProveedores -> ControladorProveedores : cancelarOperacion()
-ControladorProveedores --> PantallaProveedores : cerrarPantalla()
+PantallaProveedores --> Usuario : <<>>
+deactivate PantallaProveedores
 
 @enduml
+

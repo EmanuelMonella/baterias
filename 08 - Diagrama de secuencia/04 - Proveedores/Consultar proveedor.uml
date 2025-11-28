@@ -1,32 +1,43 @@
 @startuml
-actor Usuario
-participant PantallaProveedores
-participant ControladorProveedores
-participant Proveedor
 
 == Consultar Proveedor ==
 
 Usuario -> PantallaProveedores : seleccionarPantalla("PROVEEDORES")
-PantallaProveedores -> ControladorProveedores : mostrarProveedoresPrecargados()
-ControladorProveedores -> Proveedor : obtenerListaProveedores()
-Proveedor --> ControladorProveedores : listaProveedores
-ControladorProveedores --> PantallaProveedores : mostrarListaProveedores(listaProveedores)
+activate PantallaProveedores
 
+PantallaProveedores -> ControladorProveedores : mostrarProveedoresPrecargados()
+activate ControladorProveedores
+
+ControladorProveedores -> Proveedor : obtenerListaProveedores()
+activate Proveedor
+Proveedor --> ControladorProveedores : <<listaProveedores>>
+deactivate Proveedor
+
+ControladorProveedores --> PantallaProveedores : <<mostrarListaProveedores>>
+deactivate ControladorProveedores
+PantallaProveedores --> Usuario : <<lista proveedores>>
 Usuario -> PantallaProveedores : ingresarNombreProveedor(nombre)
-Usuario -> PantallaProveedores : seleccionarBoton("BUSCAR")
+
 PantallaProveedores -> ControladorProveedores : buscarProveedor(nombre)
+activate ControladorProveedores
+
 ControladorProveedores -> Proveedor : filtrarPorNombre(nombre)
-Proveedor --> ControladorProveedores : listaFiltrada
+activate Proveedor
+Proveedor --> ControladorProveedores : <<listaFiltrada>>
+deactivate Proveedor
 
 alt Proveedores encontrados
-    ControladorProveedores --> PantallaProveedores : mostrarProveedores(listaFiltrada)
+    ControladorProveedores --> PantallaProveedores : <<mostrarProveedores>>
+    PantallaProveedores --> Usuario : <<lista proveedores filtrados>>
 else No hay proveedores
-    ControladorProveedores --> PantallaProveedores : mostrarMensaje("No hay proveedores con ese nombre")
+    ControladorProveedores --> PantallaProveedores : <<Sin proveedores>>
+    PantallaProveedores --> Usuario : <<mensaje- "No hay proveedores">>
 end
+deactivate ControladorProveedores
 
 == Alternativa: Cancelar ==
 Usuario -> PantallaProveedores : seleccionarBoton("Salir")
-PantallaProveedores -> ControladorProveedores : cancelarOperacion()
-ControladorProveedores --> PantallaProveedores : cerrarPantalla()
+PantallaProveedores --> Usuario : <<>>
+deactivate PantallaProveedores
 
 @enduml
