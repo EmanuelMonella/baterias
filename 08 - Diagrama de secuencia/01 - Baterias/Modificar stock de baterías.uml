@@ -1,56 +1,44 @@
 @startuml
-actor Usuario
 
+
+== Inicio ==
 Usuario -> PantallaGestiónStock : seleccionarBateria(codigo)
 activate PantallaGestiónStock
-PantallaGestiónStock -> PantallaModificarStock : mostrarFormulario(bateria)
-activate PantallaModificarStock
-PantallaModificarStock --> PantallaGestiónStock : formularioMostrado()
-deactivate PantallaGestiónStock
 
-Usuario -> PantallaModificarStock : ingresarNuevaCantidad(cantidad)
-Usuario -> PantallaModificarStock : clickGuardar()
+Usuario -> PantallaGestiónStock : ingresarNuevaCantidad(cantidad)
+Usuario -> PantallaGestiónStock : clickGuardar()
 
-PantallaModificarStock -> ControladorStock : modificarStock(bateria, nuevaCantidad)
+PantallaGestiónStock -> ControladorStock : modificarStock(codigo, cantidad)
 activate ControladorStock
 
-ControladorStock -> Bateria : verificarCodigoExistente(bateria.codigo)
+ControladorStock -> Bateria : verificarCodigo(codigo)
 activate Bateria
 
 alt Código existente
     Bateria --> ControladorStock : true
     deactivate Bateria
 
-    ControladorStock -> Bateria : actualizarCantidad(nuevaCantidad)
+    ControladorStock -> Bateria : actualizarCantidad(cantidad)
     activate Bateria
-    Bateria --> ControladorStock : cantidadActualizada()
+    Bateria --> ControladorStock : ok
     deactivate Bateria
 
-    ControladorStock -> PantallaModificarStock : mostrarConfirmación("Stock actualizado correctamente")
+    ControladorStock --> PantallaGestiónStock : stockActualizado
     deactivate ControladorStock
-    activate PantallaModificarStock
-    PantallaModificarStock --> Usuario : confirmaciónMostrada()
-    deactivate PantallaModificarStock
+    PantallaGestiónStock --> Usuario : mensaje="Stock actualizado"
 
 else Código no encontrado
     Bateria --> ControladorStock : false
     deactivate Bateria
 
-    ControladorStock -> PantallaModificarStock : mostrarAlerta("Código no encontrado")
+    ControladorStock --> PantallaGestiónStock : errorCodigo
     deactivate ControladorStock
-    activate PantallaModificarStock
-    PantallaModificarStock --> Usuario : alertaMostrada()
-    deactivate PantallaModificarStock
+    PantallaGestiónStock --> Usuario : mensaje="Código no encontrado"
 end
 
-== Flujo alternativo: cancelar ==
-
-Usuario -> PantallaModificarStock : clickCancelar()
-activate PantallaModificarStock
-PantallaModificarStock -> PantallaGestiónStock : volverAGestión()
-activate PantallaGestiónStock
-PantallaGestiónStock --> PantallaModificarStock : vistaPrincipalMostrada()
+== Flujo alternativo ==
+Usuario -> PantallaGestiónStock : clickCancelar()
+PantallaGestiónStock --> Usuario : operacionCancelada
 deactivate PantallaGestiónStock
-deactivate PantallaModificarStock
 
 @enduml

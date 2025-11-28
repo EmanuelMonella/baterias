@@ -1,36 +1,47 @@
 @startuml
 actor Usuario
+participant PantallaGestionBaterias
+participant ControladorStock
+participant BaseDeDatos
 
-participant "Pantalla Gestión de Baterías" as Pantalla
-participant "Sistema" as Sistema
-participant "Base de Datos" as BD
+== Inicio ==
+Usuario -> PantallaGestionBaterias : seleccionarBateria()
+activate PantallaGestionBaterias
 
-== Flujo normal ==
+PantallaGestionBaterias -> ControladorStock : solicitarMotivosBaja()
+activate ControladorStock
 
-Usuario -> Pantalla : Selecciona batería a dar de baja
-Pantalla -> Sistema : Solicita motivos de baja
-Sistema -> Pantalla : Muestra opciones:\n- Defecto de fabricación\n- Fin de vida útil\n- Retiro del mercado
+ControladorStock --> PantallaGestionBaterias : <<Motivos[Defecto, Fin de vida útil, Retiro del mercado]>>
+PantallaGestionBaterias --> Usuario : <<Motivos>>
+Usuario -> PantallaGestionBaterias : seleccionarMotivo(motivo)
+PantallaGestionBaterias -> ControladorStock : enviarMotivo(motivo)
+ControladorStock --> PantallaGestionBaterias : <<>>
+PantallaGestionBaterias --> Usuario : <<string: Confirme operacion>>
 
-Usuario -> Pantalla : Selecciona motivo de baja
-Pantalla -> Sistema : Envía motivo seleccionado
-Sistema -> Pantalla : Solicita confirmación
-
+== Confirmación ==
 alt Usuario no confirma
-    Usuario -> Pantalla : No confirma operación
-    Pantalla -> Sistema : Cancela baja
-    Sistema -> Pantalla : Retorna a selección de motivo
+    Usuario -> PantallaGestionBaterias : cancelarConfirmación()
+    PantallaGestionBaterias -> ControladorStock : cancelarBaja()
+    ControladorStock --> PantallaGestionBaterias : <<Operacion cancelada>>
+    PantallaGestionBaterias --> Usuario : <<mensaje: operacion cancelada>>
+    
 else Usuario confirma
-    Usuario -> Pantalla : Confirma operación
-    Pantalla -> Sistema : Envía confirmación y motivo
-    Sistema -> BD : Actualiza estado de batería a "Inactiva"\nReduce stock
-    BD --> Sistema : Confirmación de actualización
-    Sistema -> Pantalla : Muestra mensaje de confirmación
+    Usuario -> PantallaGestionBaterias : confirmarOperacion()
+    PantallaGestionBaterias -> ControladorStock : bajaConfirmada(motivo)
+
+    ControladorStock -> BaseDeDatos : actualizarEstado("Inactiva")
+    activate BaseDeDatos
+    BaseDeDatos --> ControladorStock : ok
+    deactivate BaseDeDatos
+
+    ControladorStock -> PantallaGestionBaterias : ok
+    PantallaGestionBaterias --> Usuario : <<Baja exitosa>>
+    deactivate ControladorStock
 end
 
-alt Usuario descarta operación en cualquier momento
-    Usuario -> Pantalla : Cancela la operación
-    Pantalla -> Sistema : Cancela baja
-    Sistema -> Pantalla : Retorna a vista principal
-end
+== Flujo alternativo: descartar ==
+Usuario -> PantallaGestionBaterias : clickDescartar()
+PantallaGestionBaterias --> Usuario : <<>>
+deactivate PantallaGestionBaterias
 
 @enduml

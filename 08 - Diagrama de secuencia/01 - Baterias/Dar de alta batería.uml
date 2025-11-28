@@ -1,28 +1,31 @@
 @startuml
 actor Usuario
 
-Usuario -> PantallaGestiónStock : seleccionarOpciónStock()
-PantallaGestiónStock -> PantallaAltaStock : mostrarFormularioAlta()
+Usuario -> PantallaGestiónStock : RegistrarBatería(marca, modelo, stock)
 
-Usuario -> PantallaAltaStock : completarFormulario(bateria)
-Usuario -> PantallaAltaStock : clickGuardar()
-
-PantallaAltaStock -> ControladorStock : registrarBateria(bateria)
-
+PantallaGestiónStock -> ControladorStock : registrarBateria(bateria)
+activate PantallaGestiónStock
+activate ControladorStock
 ControladorStock -> Bateria : verificarCodigoExistente(bateria.codigo)
+activate Bateria
 alt Código existente
     Bateria --> ControladorStock : existe = true
-    ControladorStock -> PantallaAltaStock : mostrarAlerta("CÓDIGO YA EXISTENTE")
-    return
+    ControladorStock --> PantallaGestiónStock : <<codigo existente>>
+    PantallaGestiónStock --> Usuario : <<string: Codigo existente>>
+
 else Código no existente
     Bateria --> ControladorStock : existe = false
     ControladorStock -> Bateria : registrarStock(bateria)
-    ControladorStock -> Auditoría : registrarEvento("Alta batería: " + bateria.codigo)
-    ControladorStock -> PantallaAltaStock : mostrarConfirmación("Batería registrada")
+    Bateria --> ControladorStock : <<bateria.codigo>>
+    deactivate Bateria
+    ControladorStock --> PantallaGestiónStock : mostrarConfirmación("Batería registrada")
+    deactivate ControladorStock
+    PantallaGestiónStock --> Usuario  : <<Bateria registrada>>
 end
 
 == Flujo alternativo: cancelar ==
-Usuario -> PantallaAltaStock : clickDescartar()
-PantallaAltaStock -> PantallaGestiónStock : volverAGestión()
+Usuario -> PantallaGestiónStock : clickDescartar()
+PantallaGestiónStock -> Usuario: <<>>
+deactivate PantallaGestiónStock
 
 @enduml
