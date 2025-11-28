@@ -1,46 +1,56 @@
 @startuml
-actor Usuario
 
 == Registrar Compra ==
 
-Usuario -> PantallaCompras : ingresarModulo("COMPRAS")
-PantallaCompras -> ControladorCompras : mostrarCampoProveedor()
-
-Usuario -> PantallaCompras : ingresarNombreProveedor(nombre)
+Usuario -> PantallaCompras : ingresarProveedor(nombre)
+activate PantallaCompras
 PantallaCompras -> ControladorCompras : buscarProveedor(nombre)
+activate ControladorCompras
 
 ControladorCompras -> Proveedores : buscarPorNombre(nombre)
+activate Proveedores
+
 alt proveedor encontrado
-    Proveedores --> ControladorCompras : listaProveedores
-    ControladorCompras -> PantallaCompras : mostrarListaProveedores(listaProveedores)
-    Usuario -> PantallaCompras : seleccionarProveedor(proveedor)
-    PantallaCompras -> ControladorCompras : mostrarFormularioCompra()
+    Proveedores --> ControladorCompras : <<lista>>
+    deactivate Proveedores
+    ControladorCompras --> PantallaCompras : <<proveedoresEncontrados>>
+    PantallaCompras --> Usuario : <<Lista de proveedores>>
+    Usuario -> PantallaCompras : seleccionarProveedor
 else no encontrado
-    Proveedores --> ControladorCompras : vacío
-    ControladorCompras -> PantallaCompras : mostrarMensaje("Proveedor no registrado")
+    Proveedores --> ControladorCompras : <<sinResultados>>
+    deactivate Proveedores
+    ControladorCompras --> PantallaCompras : <<Proveedor no encontrado>>
+    PantallaCompras --> Usuario : <<mensaje="Proveedor no registrado">>
 end
 
-Usuario -> PantallaCompras : completarFormulario(marca, modelo, cantidad)
+Usuario -> PantallaCompras : completarDatos(marca, modelo, cantidad)
 PantallaCompras -> ControladorCompras : validarDatos(marca, modelo, cantidad)
 
 alt datos válidos
-    ControladorCompras -> PantallaCompras : solicitarConfirmacion()
-    Usuario -> PantallaCompras : confirmarOperacion()
-    PantallaCompras -> ControladorCompras : registrarCompra()
-    ControladorCompras -> Compra : crearCompra(proveedor, marca, modelo, cantidad)
-    Compra -> Inventario : actualizarStock(marca, modelo, cantidad)
-    Inventario --> Compra : stockActualizado
-    Compra --> ControladorCompras : compraConfirmada
-    ControladorCompras -> PantallaCompras : mostrarMensaje("Compra registrada")
+    ControladorCompras --> PantallaCompras : <<solicitarConfirmacion>>
+    Usuario -> PantallaCompras : confirmar
+    PantallaCompras -> ControladorCompras : registrarCompra
+    ControladorCompras -> Compra : crear
+    activate Compra
+    Compra -> Inventario : actualizarStock
+    activate Inventario
+    Inventario --> Compra : <<stockActualizado>>
+    deactivate Inventario
+    Compra --> ControladorCompras : <<confirmada>>
+    deactivate Compra
+    ControladorCompras --> PantallaCompras : <<Compra registrada>>
+    PantallaCompras --> Usuario : <<mensaje="Compra Registrada">>
 else datos inválidos
-    ControladorCompras -> PantallaCompras : resaltarCamposInvalidos()
+    ControladorCompras --> PantallaCompras : <<datosInvalidos>>
+    PantallaCompras --> Usuario : <<mensaje="Datos Invalidos">>
 end
 
-alt usuario cancela
-    Usuario -> PantallaCompras : seleccionar("DESCARTAR")
-    PantallaCompras -> ControladorCompras : cancelarOperacion()
-end
-
-ControladorCompras --> Usuario : mensaje final o vista actualizada
+== Cancelación ==
+Usuario -> PantallaCompras : cancelar()
+PantallaCompras -> ControladorCompras : cancelarOperacion()
+ControladorCompras --> PantallaCompras : <<cancelado>>
+deactivate ControladorCompras
+PantallaCompras --> Usuario : <<Compra cancelada>>
+deactivate PantallaCompras
 
 @enduml

@@ -1,30 +1,36 @@
 @startuml
-actor Usuario
 
-== Consultar Histórico Compra ==
+Usuario -> PantallaReportes : ingresarDatos(marca, tipo)
+activate PantallaReportes
+PantallaReportes -> ControladorReportes : buscarHistorial(marca, tipo)
+activate ControladorReportes
 
-Usuario -> PantallaReportes : ingresarApartado("REPORTES")
-PantallaReportes -> ControladorReportes : mostrarCasilleros()
+ControladorReportes -> HistorialCompras : consultar(marca, tipo)
+activate HistorialCompras
 
-Usuario -> PantallaReportes : ingresarDatos(marca, tipoOperacion)
-PantallaReportes -> ControladorReportes : buscarHistorial(marca, tipoOperacion)
-
-ControladorReportes -> HistorialCompras : buscarPorMarcaYOperacion(marca, tipoOperacion)
 alt registros encontrados
-    HistorialCompras -> Registro : obtenerDatos()
-    Registro --> HistorialCompras : listaDatos
-    HistorialCompras --> ControladorReportes   : listaDatos
-    ControladorReportes -> PantallaReportes : mostrarResultados(listaDatos)
+    HistorialCompras --> ControladorReportes : listaDatos
+    deactivate HistorialCompras
+    ControladorReportes --> PantallaReportes : resultados
+    deactivate ControladorReportes
+    PantallaReportes --> Usuario : historialEnPantalla
+    deactivate PantallaReportes
+
 else sin registros
-    HistorialCompras --> ControladorReportes : vacío
-    ControladorReportes -> PantallaReportes : mostrarMensaje("NO HAY REGISTROS")
+    HistorialCompras --> ControladorReportes : sinDatos
+    deactivate HistorialCompras
+    ControladorReportes --> PantallaReportes : mensaje="NO HAY REGISTROS"
+    deactivate ControladorReportes
+    PantallaReportes --> Usuario : avisoMostrado
+    deactivate PantallaReportes
 end
 
-alt usuario cancela
-    Usuario -> PantallaReportes : seleccionar("SALIR")
-    PantallaReportes -> ControladorReportes : cancelarConsulta()
-end
-
-ControladorReportes --> Usuario : historial en pantalla o mensaje correspondiente
+== Cancelar ==
+Usuario -> PantallaReportes : cancelar
+PantallaReportes -> ControladorReportes : cancelarConsulta
+activate ControladorReportes
+ControladorReportes --> PantallaReportes : cancelado
+deactivate ControladorReportes
+PantallaReportes --> Usuario : operacionCancelada
 
 @enduml
