@@ -1,7 +1,5 @@
 @startuml
 
-' ====== CLASES PRINCIPALES ======
-
 class Bateria {
   + id_bateria: int
   + marca: String
@@ -9,7 +7,10 @@ class Bateria {
   + cantidad: int
   + precio_compra: float
   + precio_venta: float
-  + actualizarStock(cambio: int)
+
+  + aumentarStock(cant: int)
+  + reducirStock(cant: int)
+  + obtenerValorInventario(): float
 }
 
 class Cliente {
@@ -18,6 +19,8 @@ class Cliente {
   + vehiculo: String
   + telefono: String
   + direccion: String
+
+  + actualizarDatos(nombre, vehiculo, telefono, direccion)
 }
 
 class Proveedor {
@@ -25,37 +28,41 @@ class Proveedor {
   + nombre: String
   + telefono: String
   + cuit: String
+
+  + actualizarDatos(nombre, telefono, cuit)
 }
 
-class Venta {
-  + id_venta: int
+class Transaccion {
+  + id: int
   + fecha: Date
   + total: float
-  + registrarVenta()
+
+  + agregarItem(bateria: Bateria, cant: int, precio: float)
+  + calcularTotal(): float
 }
 
-class Compra {
-  + id_compra: int
-  + fecha: Date
-  + total: float
-  + registrarCompra()
+class Venta extends Transaccion {
+  + registrarVenta(cliente: Cliente)
+}
+
+class Compra extends Transaccion {
+  + registrarCompra(proveedor: Proveedor)
 }
 
 class ItemTransaccion {
   + id_item: int
   + cantidad: int
   + precio_unitario: float
-  + calcularSubtotal()
+
+  + calcularSubtotal(): float
 }
 
-' ====== RELACIONES ======
+' relaciones
 
 Cliente "1" -- "0..*" Venta : realiza
 Proveedor "1" -- "0..*" Compra : provee
 
-Venta "1" -- "0..*" ItemTransaccion : contiene
-Compra "1" -- "0..*" ItemTransaccion : contiene
-
+Transaccion "1" -- "0..*" ItemTransaccion : contiene
 Bateria "1" -- "0..*" ItemTransaccion : seTransacciona
 
 @enduml

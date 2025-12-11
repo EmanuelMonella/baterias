@@ -1,4 +1,6 @@
 @startuml
+!theme plain
+
 entity Cliente {
   *id_cliente : INT
   --
@@ -49,9 +51,9 @@ entity Factura {
 entity Venta {
   *id_venta : INT
   --
-  id_cliente : INT
-  id_factura : INT
-  id_metodo_pago : INT
+  id_cliente : INT <<FK>>
+  id_factura : INT <<FK>>
+  id_metodo_pago : INT <<FK>>
   fecha_venta : DATETIME
   total : FLOAT
 }
@@ -59,9 +61,9 @@ entity Venta {
 entity Compra {
   *id_compra : INT
   --
-  id_proveedor : INT
-  id_factura : INT
-  id_metodo_pago : INT
+  id_proveedor : INT <<FK>>
+  id_factura : INT <<FK>>
+  id_metodo_pago : INT <<FK>>
   fecha_compra : DATETIME
   total : FLOAT
 }
@@ -69,23 +71,29 @@ entity Compra {
 entity ItemTransaccion {
   *id_item : INT
   --
-  id_bateria : INT
-  id_venta : INT
-  id_compra : INT
+  id_bateria : INT <<FK>>
+  id_venta : INT <<FK>>  (nullable)
+  id_compra : INT <<FK>> (nullable)
   cantidad : INT
   tipo : VARCHAR
   precio_unitario : FLOAT
   subtotal : FLOAT
 }
 
+' RELACIONES
 
 Cliente ||--o{ Venta : "realiza"
 Proveedor ||--o{ Compra : "realiza"
+
 Venta ||--|| Factura : "genera"
-Compra ||--|| Factura : "recibe"
-Venta }o--|| MetodoPago : "utiliza"
-Compra }o--|| MetodoPago : "utiliza"
-Venta ||--o{ ItemTransaccion : "contiene"
-Compra ||--o{ ItemTransaccion : "contiene"
+Compra ||--|| Factura : "genera"
+
+MetodoPago ||--o{ Venta : "se usa en"
+MetodoPago ||--o{ Compra : "se usa en"
+
+Venta ||--o{ ItemTransaccion : "incluye"
+Compra ||--o{ ItemTransaccion : "incluye"
+
 Bateria ||--o{ ItemTransaccion : "referencia"
+
 @enduml
