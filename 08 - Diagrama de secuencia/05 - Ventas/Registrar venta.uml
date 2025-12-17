@@ -28,16 +28,15 @@ end
 Usuario -> PantallaVentas : completarDatos(marca, modelo, cantidad)
 PantallaVentas -> ControladorVentas : validarDatos(marca, modelo, cantidad)
 
-activate ControladorVentas
 alt datos válidos
     ControladorVentas --> PantallaVentas : <<solicitarConfirmacion>>
     Usuario -> PantallaVentas : confirmar
-    PantallaVentas -> ControladorVentas : registrarVenta
+    PantallaVentas -> ControladorVentas : registrarVenta(marca, modelo, cantidad)
 
-    ControladorVentas -> Venta : crear
+    ControladorVentas -> Venta : crear(marca, modelo, cantidad)
     activate Venta
 
-    Venta -> Inventario : descontarStock
+    Venta -> Inventario : descontarStock(cantidad)
     activate Inventario
     Inventario --> Venta : <<stockActualizado>>
     deactivate Inventario
